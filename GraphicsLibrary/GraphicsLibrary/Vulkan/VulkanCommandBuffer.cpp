@@ -1,5 +1,7 @@
 #include "VulkanCommandBuffer.h"
 
+#include "VulkanSwapchain.h"
+
 namespace Alpha
 {
 	VulkanCommandBuffer::VulkanCommandBuffer(VulkanDevice* device)
@@ -12,7 +14,16 @@ namespace Alpha
 	VulkanCommandBuffer::~VulkanCommandBuffer()
 	{
 		auto device = GetVkLogicalDevice();
-		vkFreeCommandBuffers(device, mCommandPool, mCommandBuffers.size(), mCommandBuffers.data());
+		
+		std::vector<VkCommandBuffer> command_buffers(mCommands.size());
+
+		for (uint32_t i = 0; i < command_buffers.size(); i++)
+		{
+			command_buffers[i] = mCommands.at(i).Buffer;
+			//vkDestroySemaphore(device, mCommands.at(i).SignalSemaphore, nullptr);
+		}
+
+		vkFreeCommandBuffers(device, mCommandPool, command_buffers.size(), command_buffers.data());
 		vkDestroyCommandPool(device, mCommandPool, nullptr);
 	}
 
@@ -45,12 +56,141 @@ namespace Alpha
 		{
 
 		}
+
+		mCommands.resize(count);
+		for (uint32_t i = 0; i < count; i++)
+		{
+			//VkSemaphoreCreateInfo semaphore_info = {};
+			//VkSemaphore semaphore = VK_NULL_HANDLE;
+			//vkCreateSemaphore(device, &semaphore_info, nullptr, &semaphore);
+
+			mCommands[i].Buffer = command_buffers[i];
+			//mCommands[i].SignalSemaphore = semaphore;
+		}
+
 		mCommandPool = command_pool;
-		mCommandBuffers = command_buffers;
 	}
 
 	VkCommandBuffer VulkanCommandBuffer::GetCommandBuffer(const uint32_t index) const
 	{
-		return VkCommandBuffer();
+		return mCommands.at(index).Buffer;
+	}
+
+	VkCommandBuffer VulkanCommandBuffer::GetCurrentCommandBuffer() const
+	{
+		return mCurrentBuffer;
+	}
+
+	VkSemaphore VulkanCommandBuffer::GetCurrentSemaphore() const
+	{
+		return mCurrentSemaphore;
+	}
+
+	void VulkanCommandBuffer::Clear(RHISwapchain* swapchain_)
+	{
+		VkCommandBuffer command_buffer = mCurrentBuffer;
+
+		auto swapchain = static_cast<VulkanSwapchain*>(swapchain_);
+		auto image = swapchain->GetCurrentImage();
+		auto& back_buffers = swapchain->GetBackBuffers();
+		auto& back_buffer = back_buffers.at(swapchain->GetCurrentImageIndex());
+
+		VkImageSubresourceRange subresource_range = back_buffer.mSubresourceRange;
+		VkClearColorValue clear_color = {};
+		clear_color.float32[0] = 1.0f;
+		clear_color.float32[1] = 0.0f;
+		clear_color.float32[2] = 1.0f;
+		clear_color.float32[3] = 1.0f;
+
+		vkCmdClearColorImage(command_buffer, image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, &clear_color, 1, &subresource_range);
+
+	}
+
+	void VulkanCommandBuffer::Transition(RHISwapchain* swapchain_)
+	{
+		VkCommandBuffer command_buffer = mCurrentBuffer;
+		VkPipelineStageFlags src = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+		VkPipelineStageFlags dst = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+
+		auto swapchain = static_cast<VulkanSwapchain*>(swapchain_);
+		auto& back_buffers = swapchain->GetBackBuffers();
+		auto& back_buffer = back_buffers.at(swapchain->GetCurrentImageIndex());
+
+		auto old_layout = back_buffer.CurrentLayout;
+		auto new_layout = back_buffer.NextLayout;
+
+		auto image = back_buffer.Image;
+		VkAccessFlags src_mask = 0;
+		VkAccessFlags dst_mask = 0;
+
+		if (old_layout == VK_IMAGE_LAYOUT_UNDEFINED || old_layout == VK_IMAGE_LAYOUT_PRESENT_SRC_KHR)
+		{
+			new_layout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+			new_layout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+			dst_mask = VK_ACCESS_TRANSFER_WRITE_BIT;
+		}
+		else if(old_layout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL)
+		{
+			new_layout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+			src_mask = VK_ACCESS_TRANSFER_READ_BIT;
+		}
+
+		VkImageSubresourceRange subresource_range = {};
+		subresource_range.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+		subresource_range.levelCount = 1;
+		subresource_range.layerCount = 1;
+
+
+		VkImageMemoryBarrier image_barrior = {};
+		image_barrior.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+		image_barrior.oldLayout = old_layout;
+		image_barrior.newLayout = new_layout;
+		image_barrior.image = image;
+		image_barrior.subresourceRange = subresource_range;
+		
+		//image_barrior.srcAccessMask = src_mask;
+		//image_barrior.dstAccessMask = dst_mask;
+
+		vkCmdPipelineBarrier(command_buffer, src, dst, VkDependencyFlags(), 0, nullptr, 0, nullptr, 1, &image_barrior);
+
+		back_buffer.CurrentLayout = new_layout;
+		back_buffer.mSubresourceRange = subresource_range;
+
+	}
+
+	void VulkanCommandBuffer::Begin(uint32_t index)
+	{
+		VkCommandBuffer command_buffer = GetCommandBuffer(index);
+		
+		auto result = vkResetCommandBuffer(command_buffer, 0);
+		if (result != VK_SUCCESS)
+		{
+
+		}
+
+		VkCommandBufferBeginInfo begine_info = {};
+		begine_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+
+		result = vkBeginCommandBuffer(command_buffer, &begine_info);
+
+		if (result != VK_SUCCESS)
+		{
+
+		}
+
+		mCurrentBuffer = command_buffer;
+
+		//mCurrentSemaphore = mCommands.at(index).SignalSemaphore;
+	}
+
+	void VulkanCommandBuffer::End()
+	{
+		VkCommandBuffer command_buffer = GetCurrentCommandBuffer();
+
+		auto result = vkEndCommandBuffer(command_buffer);
+		if (result != VK_SUCCESS)
+		{
+
+		}
 	}
 }

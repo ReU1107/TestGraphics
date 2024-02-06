@@ -49,22 +49,4 @@ namespace Alpha
 
 	};
 
-	class RHIBuilder
-	{
-	public:
-		static RHIBuffer* CreateBuffer(RHIBufferDesc& desc)
-		{
-			return RHIDynamic::GetPtr()->CreateBuffer(desc);
-		}
-
-		static RHITexture* CreateTexture(RHITextureDesc& desc)
-		{
-			return RHIDynamic::GetPtr()->CreateTexture(desc);
-		}
-
-		static RHISwapchain* CreateSwapchain(RHISwapchainDesc& desc)
-		{
-			return RHIDynamic::GetPtr()->CreateSwapchain(desc);
-		}
-	};
 }

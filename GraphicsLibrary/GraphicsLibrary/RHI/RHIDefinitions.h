@@ -17,11 +17,26 @@ namespace Alpha
 
 	};
 
+	struct RHITextureDesc
+	{
+
+	};
+
 	struct RHISwapchainDesc
 	{
 #ifdef _WIN64
 		HWND hWnd;
 #endif
+
+	};
+
+	struct RHICommandBufferDesc
+	{
+		uint32_t Count;
+	};
+
+	struct RHICommandQueueDesc
+	{
 
 	};
 

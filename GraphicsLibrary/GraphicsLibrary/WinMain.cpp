@@ -6,6 +6,7 @@
 //#include <wrl/client.h>
 #include <thread>
 #include "RenderCore/RenderCore.h"
+#include "RenderCore/WindowSystem.h"
 
 HWND hWnd;
 
@@ -75,6 +76,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInst,
 		nullptr,
 		hInstance,
 		nullptr);
+	Alpha::WindowSystem::sHWnd = hWnd;
 
 	render = new Alpha::RenderCore(hWnd);
 
@@ -93,6 +95,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInst,
 		}
 		else
 		{
+			render->Draw();
 			//test.Update(deltaTime);
 			//test.Render();
 		}

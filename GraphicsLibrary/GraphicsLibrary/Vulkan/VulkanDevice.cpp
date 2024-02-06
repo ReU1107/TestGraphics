@@ -2,10 +2,11 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <Windows.h>
 
 namespace Alpha
 {
-	Alpha::VulkanDevice::VulkanDevice()
+	VulkanDevice::VulkanDevice()
 	{
 		CreateInstance();
 		CreateDevice();
@@ -51,6 +52,8 @@ namespace Alpha
 			buf << "[" << pLayerPrefix << "] Code " << msgCode << " : " << pMsg;
 			message = buf.str();
 		}
+		MessageBoxA(nullptr, message.c_str(), "ErrorMessage", MB_OK);
+		
 
 		return false;
 	}

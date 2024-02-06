@@ -27,8 +27,8 @@ namespace Alpha
 	/*
 	* index‚Ì•ÏX(0`max)
 	*/
-	template<typename T>
-	inline void SwapIndex(T& current, const T max)
+	template<typename T, typename U = T>
+	inline void SwapIndex(T& current, const U max)
 	{
 		current = (current + 1) % max;
 	}

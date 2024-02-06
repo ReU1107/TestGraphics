@@ -2,6 +2,9 @@
 #include <Windows.h>
 #include <vulkan/vulkan_win32.h>
 #include <vector>
+#include "Utility/Utility.h"
+
+#include "VulkanCommandQueue.h"
 
 namespace Alpha
 {
@@ -19,6 +22,8 @@ namespace Alpha
 
 		for (auto& back_buffer : mBackBuffers)
 		{
+			vkDestroySemaphore(device, back_buffer.SignalSemaphore, nullptr);
+
 			vkDestroyImageView(device, back_buffer.ImageView, nullptr);
 
 			vkDestroyImage(device, back_buffer.Image, nullptr);
@@ -28,14 +33,49 @@ namespace Alpha
 		vkDestroySwapchainKHR(device, mSwapchain, nullptr);
 	}
 
-	void VulkanSwapchain::Present()
+	VkSemaphore VulkanSwapchain::GetSignalSemaphore() const
 	{
-		//VkPresentInfoKHR present_info = {};
-		//present_info.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-		//present_info.pSwapchains = &mSwapchain;
-
-		//vkQueuePresentKHR(, &present_info);
+		return mBackBuffers.at(mCurrentFrameIndex).SignalSemaphore;
 	}
+
+	//VkSemaphore VulkanSwapchain::GetWaitSemaphore() const
+	//{
+	//	return mBackBuffers.at(mCurrentFrameIndex).WaitSemaphore;
+	//}
+
+	uint32_t VulkanSwapchain::GetCurrentBackBufferIndex() const
+	{
+		return mCurrentFrameIndex;
+	}
+
+	void VulkanSwapchain::Begin()
+	{
+		auto device = GetVkLogicalDevice();
+		auto swapchain = mSwapchain;
+		auto semaphore = mBackBuffers.at(mCurrentFrameIndex).SignalSemaphore;
+		uint32_t image_index = 0;
+		auto result = vkAcquireNextImageKHR(device, swapchain, 0, semaphore, VK_NULL_HANDLE, &image_index);
+		if (result != VK_SUCCESS)
+		{
+
+		}
+		//auto result = vkAcquireNextImageKHR(device, swapchain, UINT64_MAX, semaphore, VK_NULL_HANDLE, &image_index);
+
+		mCurrentImageIndex = image_index;
+	}
+
+	void VulkanSwapchain::End()
+	{
+		SwapIndex(mCurrentFrameIndex, mMaxFrameCount);
+	}
+
+	//void VulkanSwapchain::WaitQueue(RHICommandQueue* command_queue_)
+	//{
+	//	VulkanCommandQueue* command_queue = static_cast<VulkanCommandQueue*>(command_queue_);
+	//	//command_queue->
+
+	//	// こいつの処理が終わるのを待つ
+	//}
 
 	void VulkanSwapchain::CreateSwapchain()
 	{
@@ -64,7 +104,7 @@ namespace Alpha
 		vkGetPhysicalDeviceSurfaceFormatsKHR(physical_device, surface, &format_count, formats.data());
 
 
-		uint32_t swapchain_count = capabilities.minImageCount + 1;
+		uint32_t swapchain_count = capabilities.minImageCount;
 		// 情報に基づいたスワップチェイン作成
 		VkSwapchainCreateInfoKHR swapchain_info = {};
 		swapchain_info.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
@@ -120,12 +160,19 @@ namespace Alpha
 			{
 
 			}
+
+			VkSemaphoreCreateInfo semaphore_info = {};
+			semaphore_info.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+			VkSemaphore semaphore = VK_NULL_HANDLE;
+			vkCreateSemaphore(logical_device, &semaphore_info, nullptr, &semaphore);
+
 			VulkanBackBuffer back_buffer = {};
 			back_buffer.Image = images[i];
 			back_buffer.ImageView = view;
+			back_buffer.SignalSemaphore = semaphore;
 			mBackBuffers.push_back(back_buffer);
 		}
-
+		mMaxFrameCount = image_count;
 	}
 
 #ifdef _WIN64

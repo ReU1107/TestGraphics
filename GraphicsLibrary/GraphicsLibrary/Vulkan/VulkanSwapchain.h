@@ -9,10 +9,18 @@
 
 namespace Alpha
 {
+
 	struct VulkanBackBuffer
 	{
-		VkImage Image{ VK_NULL_HANDLE };
-		VkImageView ImageView{ VK_NULL_HANDLE };
+		VkImage Image{ VK_NULL_HANDLE };				// 
+		VkImageView ImageView{ VK_NULL_HANDLE };		// 
+		VkSemaphore SignalSemaphore{ VK_NULL_HANDLE };	// Presentを待たせる
+		//VkSemaphore WaitSemaphore{ VK_NULL_HANDLE };	// Presentをする時にこのセマフォを持つ処理を待つ為に使用する(配列になる可能性あり)
+
+
+		VkImageSubresourceRange mSubresourceRange{};
+		VkImageLayout CurrentLayout;
+		VkImageLayout NextLayout;
 	};
 
 	class VulkanSwapchain : public RHISwapchain, public VulkanDeviceObject
@@ -21,8 +29,28 @@ namespace Alpha
 		VulkanSwapchain(VulkanDevice* device);
 		virtual ~VulkanSwapchain();
 
-		//uint32_t GetSwapchainCount() const { return mCount; }
-		virtual void Present() override;
+		// 
+		VkSwapchainKHR GetNative() const { return mSwapchain; }
+
+
+		VkImage GetCurrentImage() const { return mBackBuffers.at(mCurrentImageIndex).Image; }
+
+		// 
+		VkSemaphore GetSignalSemaphore() const;
+		// 
+		//VkSemaphore GetWaitSemaphore() const;
+		// 
+		uint32_t GetCurrentImageIndex() const { return mCurrentImageIndex; }
+
+		std::vector<VulkanBackBuffer>& GetBackBuffers() { return mBackBuffers; }
+		// 
+		virtual uint32_t GetCurrentBackBufferIndex() const override;
+
+		virtual void Begin() override;
+
+		virtual void End() override;
+
+		//virtual void WaitQueue(RHICommandQueue* command_queue) override;
 
 		// 
 		void CreateSwapchain();
@@ -35,6 +63,10 @@ namespace Alpha
 		VkSwapchainKHR mSwapchain{ VK_NULL_HANDLE };
 		VkSurfaceKHR mSurface{ VK_NULL_HANDLE };
 		std::vector<VulkanBackBuffer> mBackBuffers;
+		uint32_t mCurrentFrameIndex{ 0 };
+		uint32_t mMaxFrameCount{ 0 };
+		uint32_t mCurrentImageIndex{ 0 };
+
 	};
 
 }

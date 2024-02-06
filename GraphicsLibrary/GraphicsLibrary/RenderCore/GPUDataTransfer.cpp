@@ -16,7 +16,7 @@ namespace Alpha
 	void GPUDataTransfer::AddVertexBuffer(VertexBuffer* vertex_buffer, StagingBuffer* staging_buffer)
 	{
 		UploadBuffer upload = {};
-		upload.Vertex = vertex_buffer;
+		upload.Bind.Vertex = vertex_buffer;
 		upload.Staging = staging_buffer;
 		upload.Type = UploadType::Vertex;
 		mUploadBuffers.push_back(upload);
@@ -25,7 +25,7 @@ namespace Alpha
 	void GPUDataTransfer::AddIndexBuffer(IndexBuffer* index_buffer, StagingBuffer* staging_buffer)
 	{
 		UploadBuffer upload = {};
-		upload.Index = index_buffer;
+		upload.Bind.Index = index_buffer;
 		upload.Staging = staging_buffer;
 		upload.Type = UploadType::Index;
 		mUploadBuffers.push_back(upload);
@@ -34,7 +34,7 @@ namespace Alpha
 	void GPUDataTransfer::AddUniformBuffer(UniformBuffer* uniform_buffer, StagingBuffer* staging_buffer)
 	{
 		UploadBuffer upload = {};
-		upload.Uniform = uniform_buffer;
+		upload.Bind.Uniform = uniform_buffer;
 		upload.Staging = staging_buffer;
 		upload.Type = UploadType::Uniform;
 		mUploadBuffers.push_back(upload);

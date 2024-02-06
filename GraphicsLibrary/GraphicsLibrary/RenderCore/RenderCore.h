@@ -17,7 +17,7 @@ namespace Alpha
 		~RenderCore();
 
 	public:
-		
+		void Draw();
 
 
 	};

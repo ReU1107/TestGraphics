@@ -16,6 +16,7 @@
 
 #include "RHI/RHIDefinitions.h"
 
+
 namespace Alpha
 {
 	VulkanDynamic::VulkanDynamic()
@@ -24,16 +25,8 @@ namespace Alpha
 
 		SetInstance(this);
 
-
-
-
-
-		//VkFenceCreateInfo fence_info = {};
-
-		//fence_info.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
-
-		//VkFence fence = VK_NULL_HANDLE;
-		//auto result = vkCreateFence(, &fence_info, nullptr, &fence);
+		//vk::CommandBuffer c;
+		//c.pipelineBarrier(, , , nullptr, nullptr,, nullptr);
 
 	}
 
@@ -77,7 +70,8 @@ namespace Alpha
 	RHICommandQueue* VulkanDynamic::CreateCommandQueue(RHICommandQueueDesc& desc)
 	{
 		VulkanCommandQueue* queue = new VulkanCommandQueue(mDevice);
-		return nullptr;
+		queue->Create(0);
+		return queue;
 	}
 }
 

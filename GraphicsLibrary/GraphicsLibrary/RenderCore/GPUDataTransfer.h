@@ -25,10 +25,10 @@ namespace Alpha
 	{
 		union
 		{
-			VertexBuffer* Vertex{ nullptr };
+			VertexBuffer* Vertex;
 			IndexBuffer* Index;
 			UniformBuffer* Uniform;
-		};
+		}Bind{};
 		
 		UploadType Type{ UploadType::Vertex };
 		StagingBuffer* Staging{ nullptr };

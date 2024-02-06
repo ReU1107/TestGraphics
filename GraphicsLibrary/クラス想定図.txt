@@ -1,34 +1,4 @@
-スワップチェインとコマンドバッファを使用して
-バックバッファのクリア例
-class Swapchain
-{
-private:
-	RHISwapchain* mRHI;
-	struct BackBuffer
-	{
-		RHIImage* Image;
-		RHIView*  View;
-		RHIFence* fence;
-	};
-	Backbuffer mBackBuffers[3];
-	uint32_t mCurrentIndex;
-public:
-	Swapchain();
-	~Swapchain();
-	
-	
-	void Present()
-	{
-		mRHI->Present();
-		SwapIndex(mCurrentIndex,3);
-	}
-	
-	RHIImage* GetCurrentImage()
-	{
-		return mBackBuffers[mCurrentIndex].Image;
-	}
-	
-};
+
 
 class CommandList
 {
