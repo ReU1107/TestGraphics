@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "VulkanDevice.h"
 #include "RHI/RHIFence.h"
 
@@ -7,7 +7,7 @@ namespace Alpha
 	class VulkanFence : public RHIFence, public VulkanDeviceObject
 	{
 	private:
-		VkFence mFence;
+		VkFence mFence{ VK_NULL_HANDLE };
 
 
 	public:

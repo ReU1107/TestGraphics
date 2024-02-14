@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <cstdint>
 
 #include "RHIResource.h"
@@ -38,6 +38,22 @@ namespace Alpha
 	struct RHICommandQueueDesc
 	{
 
+	};
+
+	struct RHIShaderDesc
+	{
+
+		const char* path;
+	};
+
+	struct RHIDescriptorHeapDesc
+	{
+		struct
+		{
+			ERHIResourceType ResourceType;	// 
+			uint32_t ReservationCount;		// 予約数
+		}Parameter[10];
+		uint32_t ParameterCount{ 0 };
 	};
 
 }

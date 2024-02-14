@@ -1,4 +1,4 @@
-#include "VulkanSwapchain.h"
+ï»¿#include "VulkanSwapchain.h"
 #include <Windows.h>
 #include <vulkan/vulkan_win32.h>
 #include <vector>
@@ -74,7 +74,7 @@ namespace Alpha
 	//	VulkanCommandQueue* command_queue = static_cast<VulkanCommandQueue*>(command_queue_);
 	//	//command_queue->
 
-	//	// ‚±‚¢‚Â‚Ìˆ—‚ªI‚í‚é‚Ì‚ğ‘Ò‚Â
+	//	// ã“ã„ã¤ã®å‡¦ç†ãŒçµ‚ã‚ã‚‹ã®ã‚’å¾…ã¤
 	//}
 
 	void VulkanSwapchain::CreateSwapchain()
@@ -83,7 +83,7 @@ namespace Alpha
 		auto physical_device = GetVkPhysicalDevice();
 
 		auto surface = mSurface;
-		// ƒT[ƒtƒFƒCƒXî•ñæ“¾
+		// ã‚µãƒ¼ãƒ•ã‚§ã‚¤ã‚¹æƒ…å ±å–å¾—
 		VkSurfaceCapabilitiesKHR capabilities = {};
 		auto result = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physical_device, surface, &capabilities);
 		if (result != VK_SUCCESS)
@@ -97,7 +97,7 @@ namespace Alpha
 
 		VkPhysicalDeviceFeatures features = {};
 		vkGetPhysicalDeviceFeatures(physical_device, &features);
-		// ƒTƒ|[ƒg‚µ‚Ä‚¢‚éƒtƒH[ƒ}ƒbƒgæ“¾
+		// ã‚µãƒãƒ¼ãƒˆã—ã¦ã„ã‚‹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆå–å¾—
 		uint32_t format_count = 0;
 		vkGetPhysicalDeviceSurfaceFormatsKHR(physical_device, surface, &format_count, nullptr);
 		std::vector<VkSurfaceFormatKHR> formats(format_count);
@@ -105,7 +105,7 @@ namespace Alpha
 
 
 		uint32_t swapchain_count = capabilities.minImageCount;
-		// î•ñ‚ÉŠî‚Ã‚¢‚½ƒXƒƒbƒvƒ`ƒFƒCƒ“ì¬
+		// æƒ…å ±ã«åŸºã¥ã„ãŸã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ä½œæˆ
 		VkSwapchainCreateInfoKHR swapchain_info = {};
 		swapchain_info.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
 		swapchain_info.surface = surface;
@@ -131,7 +131,7 @@ namespace Alpha
 		mSurface = surface;
 		mSwapchain = swapchain;
 
-		// ƒXƒƒbƒvƒ`ƒFƒCƒ“‚©‚çƒoƒbƒNƒoƒbƒtƒ@‚ÌƒCƒ[ƒWæ“¾
+		// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã‹ã‚‰ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã®ã‚¤ãƒ¡ãƒ¼ã‚¸å–å¾—
 		uint32_t image_count = 0;
 		result = vkGetSwapchainImagesKHR(logical_device, mSwapchain, &image_count, nullptr);
 		std::vector<VkImage> images(image_count);
@@ -140,7 +140,7 @@ namespace Alpha
 		{
 
 		}
-		// ƒCƒ[ƒWƒrƒ…[‚Ìì¬
+		// ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ“ãƒ¥ãƒ¼ã®ä½œæˆ
 		VkImageViewCreateInfo image_view_info = {};
 		image_view_info.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 		image_view_info.viewType = VK_IMAGE_VIEW_TYPE_2D;
@@ -180,7 +180,7 @@ namespace Alpha
 	{
 		auto instance = GetVkInstance();
 
-		// ƒT[ƒtƒFƒCƒX‚Ìì¬
+		// ã‚µãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã®ä½œæˆ
 		VkWin32SurfaceCreateInfoKHR surfaceInfo{};
 		surfaceInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
 		surfaceInfo.hinstance = GetModuleHandle(nullptr);
@@ -190,7 +190,7 @@ namespace Alpha
 		auto result = vkCreateWin32SurfaceKHR(instance, &surfaceInfo, nullptr, &surface);
 		if (result != VK_SUCCESS)
 		{
-			// device_info extensions‚É@VK_KHR_swapchain‚ğ’Ç‰Á‚µ‚½‚©H
+			// device_info extensionsã«ã€€VK_KHR_swapchainã‚’è¿½åŠ ã—ãŸã‹ï¼Ÿ
 		}
 
 		mSurface = surface;

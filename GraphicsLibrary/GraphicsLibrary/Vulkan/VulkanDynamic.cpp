@@ -1,4 +1,4 @@
-#include "VulkanDynamic.h"
+﻿#include "VulkanDynamic.h"
 #include <cstdint>
 
 #if RHI_VK
@@ -13,6 +13,7 @@
 #include "VulkanBuffer.h"
 #include "VulkanCommandBuffer.h"
 #include "VulkanCommandQueue.h"
+#include "VulkanShader.h"
 
 #include "RHI/RHIDefinitions.h"
 
@@ -42,7 +43,7 @@ namespace Alpha
 	RHISwapchain* VulkanDynamic::CreateSwapchain(RHISwapchainDesc& desc)
 	{
 		VulkanSwapchain* swapchain = new VulkanSwapchain(mDevice);
-		// Windows�ˑ�
+		// Windows依存
 		swapchain->CreateSurface(desc.hWnd);
 
 		swapchain->CreateSwapchain();
@@ -52,6 +53,7 @@ namespace Alpha
 	RHIBuffer* VulkanDynamic::CreateBuffer(RHIBufferDesc& desc)
 	{
 		VulkanBuffer* buffer = new VulkanBuffer(mDevice, desc.Stride, desc.Size, desc.Usage);
+		buffer->CreateObject();
 		return buffer;
 	}
 
@@ -63,7 +65,7 @@ namespace Alpha
 	RHICommandBuffer* VulkanDynamic::CreateCommandBuffer(RHICommandBufferDesc& desc)
 	{
 		VulkanCommandBuffer* buffer = new VulkanCommandBuffer(mDevice);
-		buffer->Create(3);
+		buffer->Create(desc.Count);
 		return buffer;
 	}
 
@@ -72,6 +74,13 @@ namespace Alpha
 		VulkanCommandQueue* queue = new VulkanCommandQueue(mDevice);
 		queue->Create(0);
 		return queue;
+	}
+
+	RHIShader* VulkanDynamic::CreateShader(RHIShaderDesc& desc)
+	{
+		VulkanShader* shader = new VulkanShader(mDevice);
+		shader->Create(desc.path);
+		return shader;
 	}
 }
 

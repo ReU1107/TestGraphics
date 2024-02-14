@@ -1,4 +1,4 @@
-#include "VulkanCommandQueue.h"
+ï»¿#include "VulkanCommandQueue.h"
 
 #include "VulkanSwapchain.h"
 #include "VulkanCommandBuffer.h"
@@ -24,7 +24,7 @@ namespace Alpha
 		auto device = GetVkLogicalDevice();
 		VkQueue queue = VK_NULL_HANDLE;
 
-		// BitFlags‚ğg—p‚µ‚Äì¬Ï‚İ‚ÌƒLƒ…[”Ô†‚©‚çì¬‚µ‚È‚¢‚æ‚¤‚É‚·‚é
+		// BitFlagsã‚’ä½¿ç”¨ã—ã¦ä½œæˆæ¸ˆã¿ã®ã‚­ãƒ¥ãƒ¼ç•ªå·ã‹ã‚‰ä½œæˆã—ãªã„ã‚ˆã†ã«ã™ã‚‹
 		index = this->GetGraphicsQueueFamilyIndex();
 
 		vkGetDeviceQueue(device, index, 0, &queue);
@@ -64,18 +64,21 @@ namespace Alpha
 
 		VkSubmitInfo submit_info = {};
 		submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-		// ˆ—‚·‚éƒRƒ}ƒ“ƒhƒoƒbƒtƒ@
+		// å‡¦ç†ã™ã‚‹ã‚³ãƒãƒ³ãƒ‰ãƒãƒƒãƒ•ã‚¡
 		submit_info.pCommandBuffers = &process_buffer;
 		submit_info.commandBufferCount = 1;
 
 		submit_info.pWaitDstStageMask = &wait_stage_mask;
+		if (mCurrentSemaphore)
+		{
+			// ã“ã®ã‚µãƒ–ãƒŸãƒƒãƒˆè¡Œã†å‰ã«çµ‚ã‚ã‚‰ã›ãŸã„å‡¦ç†ã‚’å¾…ã¤
+			submit_info.waitSemaphoreCount = 1;
+			submit_info.pWaitSemaphores = &mCurrentSemaphore;
+		}
 
-		// ‚±‚ÌƒTƒuƒ~ƒbƒgs‚¤‘O‚ÉI‚í‚ç‚¹‚½‚¢ˆ—‚ğ‘Ò‚Â
-		submit_info.waitSemaphoreCount = 1;
-		submit_info.pWaitSemaphores = &mCurrentSemaphore;
 
-		// ‚±‚ÌƒTƒuƒ~ƒbƒg‚ÉˆË‘¶‚·‚é‚à‚Ì‚Í‚±‚ÌƒVƒOƒiƒ‹‚ğg—p‚·‚é
-		// Todo:‚¢‚Â‚©•œŠˆ‚³‚¹‚éB
+		// ã“ã®ã‚µãƒ–ãƒŸãƒƒãƒˆã«ä¾å­˜ã™ã‚‹ã‚‚ã®ã¯ã“ã®ã‚·ã‚°ãƒŠãƒ«ã‚’ä½¿ç”¨ã™ã‚‹
+		// Todo:ã„ã¤ã‹å¾©æ´»ã•ã›ã‚‹ã€‚
 		//submit_info.signalSemaphoreCount = 1;
 		//submit_info.pSignalSemaphores = &signal_semaphore;
 		auto queue = mQueue;

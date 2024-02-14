@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <functional>
 #include <unordered_map>
 #include <string>
@@ -20,7 +20,7 @@ namespace Alpha
 
 		void RegisterBuilder(const std::string& name, const BuildFunc& func)
 		{
-			// “o˜^‚³‚ê‚Ä‚¢‚é‚©‚ÌŠm”F
+			// ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‹ã®ç¢ºèª
 
 
 

@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 #include <type_traits>
 
 namespace Alpha
 {
 
-	// —ñ‹“‚ğŠî–{Œ^‚ÉƒLƒƒƒXƒg
+	// åˆ—æŒ™ã‚’åŸºæœ¬å‹ã«ã‚­ãƒ£ã‚¹ãƒˆ
 	template<class T>
 	inline std::underlying_type_t<T> CovertEnumClassToBaseType(T e)
 	{
@@ -18,13 +18,13 @@ inline bool operator &(Flag lhs, Flag rhs)	{ return CovertEnumClassToBaseType(lh
 inline Flag operator |=(Flag& lhs, Flag rhs){ lhs = lhs | rhs;return lhs; }\
 inline Flag operator ^=(Flag& lhs, Flag rhs){ lhs = lhs ^ rhs;return lhs; }
 
-	// ƒrƒbƒg‚Éƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚é‚©(EnumClassFlags•K{)
+	// ãƒ“ãƒƒãƒˆã«ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ã‚‹ã‹(EnumClassFlagså¿…é ˆ)
 	template<typename EnumClass>
 	inline bool EnumHasFlag(EnumClass bit, EnumClass flag)
 	{
 		return ((bit & flag) != 0);
 	}
-	// ƒrƒbƒg‚Éƒtƒ‰ƒO‚ğ—§‚Ä‚é(EnumClassFlags•K{)
+	// ãƒ“ãƒƒãƒˆã«ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹(EnumClassFlagså¿…é ˆ)
 	template<typename EnumClass>
 	inline EnumClass OnBit(EnumClass& bit, EnumClass flag)
 	{
@@ -32,7 +32,7 @@ inline Flag operator ^=(Flag& lhs, Flag rhs){ lhs = lhs ^ rhs;return lhs; }
 	}
 }
 //
-//// •K—v‚Èenum class‚ÉŒÀ’è‚·‚é‚½‚ß‚Éª‚Ìƒ}ƒNƒ‚É•ÏX
+//// å¿…è¦ãªenum classã«é™å®šã™ã‚‹ãŸã‚ã«â†‘ã®ãƒã‚¯ãƒ­ã«å¤‰æ›´
 //template<class T>
 //inline T operator |(T l, T r)
 //{

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "VulkanDevice.h"
 #include "RHI/RHIResource.h"
 
@@ -14,6 +14,8 @@ namespace Alpha
 	public:
 		VulkanBuffer(VulkanDevice* device, uint32_t stride, uint32_t size, EBufferUsage usage);
 		virtual ~VulkanBuffer();
+
+		VkBuffer GetNative() const { return mBuffer; }
 
 		virtual void CreateObject() override final;
 		virtual void TransferData(void* transfer_data) override final;

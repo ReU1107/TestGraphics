@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <cstdint>
 #include "Utility/EnumClassFlags.h"
 
@@ -24,14 +24,14 @@ namespace Alpha
 
 	enum class RHIResourceDimension
 	{
-		Unknown,	// ƒeƒNƒXƒ`ƒƒƒ^ƒCƒv‚ª‰Šú‰»‚³‚ê‚Ä‚¢‚È‚¢‚©A•s–¾‚Å‚·B
-		None,		// ƒeƒNƒXƒ`ƒƒ‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB
-		Any,		// ‚·‚×‚Ä‚ÌƒeƒNƒXƒ`ƒƒƒ^ƒCƒvB
-		Tex1D,		// 1DƒeƒNƒXƒ`ƒƒ
-		Tex2D,		// 2DƒeƒNƒXƒ`ƒƒ(Texture2D)B
-		Tex3D,		// 3Dƒ{ƒŠƒ…[ƒ€ƒeƒNƒXƒ`ƒƒ(Texture3D)B
-		Cube,		// ƒLƒ…[ƒuƒ}ƒbƒv ƒeƒNƒXƒ`ƒƒB
-		Tex2DArray,	// 2D”z—ñƒeƒNƒXƒ`ƒƒ(Texture2DArray)B
+		Unknown,	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚¿ã‚¤ãƒ—ãŒåˆæœŸåŒ–ã•ã‚Œã¦ã„ãªã„ã‹ã€ä¸æ˜ã§ã™ã€‚
+		None,		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚
+		Any,		// ã™ã¹ã¦ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚¿ã‚¤ãƒ—ã€‚
+		Tex1D,		// 1Dãƒ†ã‚¯ã‚¹ãƒãƒ£
+		Tex2D,		// 2Dãƒ†ã‚¯ã‚¹ãƒãƒ£(Texture2D)ã€‚
+		Tex3D,		// 3Dãƒœãƒªãƒ¥ãƒ¼ãƒ ãƒ†ã‚¯ã‚¹ãƒãƒ£(Texture3D)ã€‚
+		Cube,		// ã‚­ãƒ¥ãƒ¼ãƒ–ãƒãƒƒãƒ— ãƒ†ã‚¯ã‚¹ãƒãƒ£ã€‚
+		Tex2DArray,	// 2Dé…åˆ—ãƒ†ã‚¯ã‚¹ãƒãƒ£(Texture2DArray)ã€‚
 		CubeArray,	// Cubemap array texture(CubemapArray).
 	};
 
@@ -84,12 +84,12 @@ namespace Alpha
 
 	enum class RHIResourceFlags
 	{
-		None = 0x0,						// ‚È‚µ
-		AllowRenderTarget = 0x01,		// •`‰ææw’è‹–‰Â
-		AllowDepthStencil = 0x02,		// [“xAƒXƒeƒ“ƒVƒ‹‘‚«‚İ‹–‰Â
-		AllowUnorderedAccess = 0x04,	// ƒRƒ“ƒsƒ…[ƒgƒVƒF[ƒ_[‚ÌƒAƒNƒZƒX‹–‰Â
-		DenyShaderResource = 0x08,		// ƒVƒF[ƒ_[ƒŠƒ\[ƒXw’è•s‹–‰Â
-		AllowCrossAdapter = 0x10,		// •ÊX‚ÌƒAƒ_ƒvƒ^[‚Å‚Ìg—p‹–‰Â
+		None = 0x0,						// ãªã—
+		AllowRenderTarget = 0x01,		// æç”»å…ˆæŒ‡å®šè¨±å¯
+		AllowDepthStencil = 0x02,		// æ·±åº¦ã€ã‚¹ãƒ†ãƒ³ã‚·ãƒ«æ›¸ãè¾¼ã¿è¨±å¯
+		AllowUnorderedAccess = 0x04,	// ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ãƒˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ã‚¢ã‚¯ã‚»ã‚¹è¨±å¯
+		DenyShaderResource = 0x08,		// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒªã‚½ãƒ¼ã‚¹æŒ‡å®šä¸è¨±å¯
+		AllowCrossAdapter = 0x10,		// åˆ¥ã€…ã®ã‚¢ãƒ€ãƒ—ã‚¿ãƒ¼ã§ã®ä½¿ç”¨è¨±å¯
 		AllowSimultaneousAccess = 0x20,	// 
 		DecodeReferenceOnly = 0x40,		// 
 	};
@@ -108,28 +108,28 @@ namespace Alpha
 
 	enum class ERHIResourceState
 	{
-		Common = 0,							// ‚È‚µ
-		VertexConstantBuffer	 = 1 << 0,	// ’¸“_,’è”ƒoƒbƒtƒ@
-		IndexBuffer				 = 1 << 1,	// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@
-		RenderTarget			 = 1 << 2,	// ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg
-		UnorderedAccess			 = 1 << 3,	// ƒAƒ“ƒI[ƒ_[ƒhƒAƒNƒZƒX
-		DepthWrite				 = 1 << 4,	// [“x‘‚«‚İ
-		DepthRead				 = 1 << 5,	// [“x“Ç‚İ‚İ
-		NonPixelShaderResource	 = 1 << 6,	// ƒsƒNƒZƒ‹ƒVƒF[ƒ_[“à‚Å‚ÌƒŠƒ\[ƒX‚Æ‚µ‚Äˆµ‚í‚È‚¢
-		PixelShaderResource		 = 1 << 7,	// ƒsƒNƒZƒ‹ƒVƒF[ƒ_[“à‚ÅƒŠƒ\[ƒX‚Æ‚µ‚Äˆµ‚¤
-		StreamOut				 = 1 << 8,	// ƒXƒgƒŠ[ƒ€ƒAƒEƒg
-		IndirectArgument		 = 1 << 9,	// ‘¦
-		CopyDestination			 = 1 << 10,	// ƒRƒs[æ
-		CopySource				 = 1 << 11,	// ƒRƒs[Œ³
+		Common = 0,							// ãªã—
+		VertexConstantBuffer	 = 1 << 0,	// é ‚ç‚¹,å®šæ•°ãƒãƒƒãƒ•ã‚¡
+		IndexBuffer				 = 1 << 1,	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡
+		RenderTarget			 = 1 << 2,	// ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
+		UnorderedAccess			 = 1 << 3,	// ã‚¢ãƒ³ã‚ªãƒ¼ãƒ€ãƒ¼ãƒ‰ã‚¢ã‚¯ã‚»ã‚¹
+		DepthWrite				 = 1 << 4,	// æ·±åº¦æ›¸ãè¾¼ã¿
+		DepthRead				 = 1 << 5,	// æ·±åº¦èª­ã¿è¾¼ã¿
+		NonPixelShaderResource	 = 1 << 6,	// ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼å†…ã§ã®ãƒªã‚½ãƒ¼ã‚¹ã¨ã—ã¦æ‰±ã‚ãªã„
+		PixelShaderResource		 = 1 << 7,	// ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼å†…ã§ãƒªã‚½ãƒ¼ã‚¹ã¨ã—ã¦æ‰±ã†
+		StreamOut				 = 1 << 8,	// ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚¢ã‚¦ãƒˆ
+		IndirectArgument		 = 1 << 9,	// å³æ™‚
+		CopyDestination			 = 1 << 10,	// ã‚³ãƒ”ãƒ¼å…ˆ
+		CopySource				 = 1 << 11,	// ã‚³ãƒ”ãƒ¼å…ƒ
 		ResolveDestination		 = 1 << 12,	// 
 		ResolveSource			 = 1 << 13,	// 
-		RaytracingStructure		 = 1 << 14,	// ƒŒƒCƒgƒŒ[ƒVƒ“ƒO\‘¢‘Ì
-		GenericRead = ((((					// ˆê”Ê“I‚È“Ç‚İ‚İ—p‚ÌƒXƒe[ƒg
+		RaytracingStructure		 = 1 << 14,	// ãƒ¬ã‚¤ãƒˆãƒ¬ãƒ¼ã‚·ãƒ³ã‚°æ§‹é€ ä½“
+		GenericRead = ((((					// ä¸€èˆ¬çš„ãªèª­ã¿è¾¼ã¿ç”¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆ
 			(VertexConstantBuffer | IndexBuffer)
 			| NonPixelShaderResource)
 			| PixelShaderResource)
 			| IndirectArgument) | CopySource),
-		Present					 = 0x8000,	// ƒvƒŒƒ[ƒ“ƒg
+		Present					 = 0x8000,	// ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆ
 	};
 
 	EnumClassFlags(ERHIResourceState);
@@ -138,7 +138,7 @@ namespace Alpha
 	{
 		None = 0x00,
 		Vertex				 = 1 << 0,	// 
-		Index				 = 1 << 1,	// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@
+		Index				 = 1 << 1,	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡
 		Structured			 = 1 << 2,	// 
 		ByteAddress			 = 1 << 3,	// 
 		Static				 = 1 << 4,	// 
@@ -167,21 +167,21 @@ namespace Alpha
 		Depth16,
 		Depth24Stencil8,
 		RGB10A2Unorm,
-		//Alpha8,				// ƒAƒ‹ƒtƒ@‚Ì‚İ‚ÌƒeƒNƒXƒ`ƒƒ
-		//ARGB4444,			// 1 ƒsƒNƒZƒ‹ 16 ƒrƒbƒg‚ÌƒeƒNƒXƒ`ƒƒŒ`® ƒAƒ‹ƒtƒ@ƒ`ƒƒƒ“ƒlƒ‹‚ª“K—p‚³‚ê‚Ä‚¢‚Ü‚·
+		//Alpha8,				// ã‚¢ãƒ«ãƒ•ã‚¡ã®ã¿ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£
+		//ARGB4444,			// 1 ãƒ”ã‚¯ã‚»ãƒ« 16 ãƒ“ãƒƒãƒˆã®ãƒ†ã‚¯ã‚¹ãƒãƒ£å½¢å¼ ã‚¢ãƒ«ãƒ•ã‚¡ãƒãƒ£ãƒ³ãƒãƒ«ãŒé©ç”¨ã•ã‚Œã¦ã„ã¾ã™
 		//RGB24,				// Color texture format, 8 - bits per channel.
-		//RGBA32,				// 1 ƒ`ƒƒƒ“ƒlƒ‹‚ ‚½‚è 8 ƒrƒbƒg‚Å\¬‚³‚ê‚½ƒAƒ‹ƒtƒ@ƒ`ƒƒƒ“ƒlƒ‹‚ğ‚ÂƒJƒ‰[‚ÌƒeƒNƒXƒ`ƒƒŒ`®
-		//ARGB32,				// 1 ƒ`ƒƒƒ“ƒlƒ‹‚ ‚½‚è 8 ƒrƒbƒg‚Å\¬‚³‚ê‚½ƒAƒ‹ƒtƒ@ƒ`ƒƒƒ“ƒlƒ‹‚ğ‚ÂƒJƒ‰[‚ÌƒeƒNƒXƒ`ƒƒŒ`®
-		//RGB565,				// 16 ƒrƒbƒgƒJƒ‰[‚ÌƒeƒNƒXƒ`ƒƒŒ`®
+		//RGBA32,				// 1 ãƒãƒ£ãƒ³ãƒãƒ«ã‚ãŸã‚Š 8 ãƒ“ãƒƒãƒˆã§æ§‹æˆã•ã‚ŒãŸã‚¢ãƒ«ãƒ•ã‚¡ãƒãƒ£ãƒ³ãƒãƒ«ã‚’æŒã¤ã‚«ãƒ©ãƒ¼ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£å½¢å¼
+		//ARGB32,				// 1 ãƒãƒ£ãƒ³ãƒãƒ«ã‚ãŸã‚Š 8 ãƒ“ãƒƒãƒˆã§æ§‹æˆã•ã‚ŒãŸã‚¢ãƒ«ãƒ•ã‚¡ãƒãƒ£ãƒ³ãƒãƒ«ã‚’æŒã¤ã‚«ãƒ©ãƒ¼ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£å½¢å¼
+		//RGB565,				// 16 ãƒ“ãƒƒãƒˆã‚«ãƒ©ãƒ¼ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£å½¢å¼
 		//R16,				// Single channel(R) texture format, 16 bit integer.
-		//DXT1,				// ˆ³k‚³‚ê‚½ƒeƒNƒXƒ`ƒƒŒ`®
-		//DXT5,				// ˆ³k‚³‚ê‚½ƒAƒ‹ƒtƒ@‚ª“K—p‚³‚ê‚Ä‚¢‚éƒeƒNƒXƒ`ƒƒŒ`®
-		//RGBA4444,			// 1 ƒ`ƒƒƒ“ƒlƒ‹‚ ‚½‚è 4 ƒrƒbƒg‚Å\¬‚³‚ê‚½ƒAƒ‹ƒtƒ@ƒ`ƒƒƒ“ƒlƒ‹‚ğ‚ÂF‚ÌƒeƒNƒXƒ`ƒƒŒ`®
-		//RHalf,				// ƒXƒJƒ‰[’l(R) ‚ÌƒeƒNƒXƒ`ƒƒŒ`® 16 ƒrƒbƒg‚Ì•‚“®¬”“_
-		//RGHalf,				// 2 F(RG) ‚ÌƒeƒNƒXƒ`ƒƒŒ`® Šeƒ`ƒƒƒ“ƒlƒ‹ 16 ƒrƒbƒg‚Ì•‚“®¬”“_
-		//RGBAHalf,			// RGB ƒJƒ‰[‚ÆƒAƒ‹ƒtƒ@ƒ`ƒƒƒ“ƒlƒ‹‚ÌƒeƒNƒXƒ`ƒƒŒ`® Šeƒ`ƒƒƒ“ƒlƒ‹‚Í 16 ƒrƒbƒg‚Ì•‚“®¬”“_
-		//RFloat,				// ƒXƒJƒ‰[’l(R) ‚ÌƒeƒNƒXƒ`ƒƒŒ`® 32 ƒrƒbƒg‚Ì•‚“®¬”“_
-		//RGFloat,			// 2 F(RG) ‚ÌƒeƒNƒXƒ`ƒƒŒ`® Šeƒ`ƒƒƒ“ƒlƒ‹ 32 ƒrƒbƒg‚Ì•‚“®¬”“_
+		//DXT1,				// åœ§ç¸®ã•ã‚ŒãŸãƒ†ã‚¯ã‚¹ãƒãƒ£å½¢å¼
+		//DXT5,				// åœ§ç¸®ã•ã‚ŒãŸã‚¢ãƒ«ãƒ•ã‚¡ãŒé©ç”¨ã•ã‚Œã¦ã„ã‚‹ãƒ†ã‚¯ã‚¹ãƒãƒ£å½¢å¼
+		//RGBA4444,			// 1 ãƒãƒ£ãƒ³ãƒãƒ«ã‚ãŸã‚Š 4 ãƒ“ãƒƒãƒˆã§æ§‹æˆã•ã‚ŒãŸã‚¢ãƒ«ãƒ•ã‚¡ãƒãƒ£ãƒ³ãƒãƒ«ã‚’æŒã¤è‰²ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£å½¢å¼
+		//RHalf,				// ã‚¹ã‚«ãƒ©ãƒ¼å€¤(R) ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£å½¢å¼ 16 ãƒ“ãƒƒãƒˆã®æµ®å‹•å°æ•°ç‚¹
+		//RGHalf,				// 2 è‰²(RG) ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£å½¢å¼ å„ãƒãƒ£ãƒ³ãƒãƒ« 16 ãƒ“ãƒƒãƒˆã®æµ®å‹•å°æ•°ç‚¹
+		//RGBAHalf,			// RGB ã‚«ãƒ©ãƒ¼ã¨ã‚¢ãƒ«ãƒ•ã‚¡ãƒãƒ£ãƒ³ãƒãƒ«ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£å½¢å¼ å„ãƒãƒ£ãƒ³ãƒãƒ«ã¯ 16 ãƒ“ãƒƒãƒˆã®æµ®å‹•å°æ•°ç‚¹
+		//RFloat,				// ã‚¹ã‚«ãƒ©ãƒ¼å€¤(R) ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£å½¢å¼ 32 ãƒ“ãƒƒãƒˆã®æµ®å‹•å°æ•°ç‚¹
+		//RGFloat,			// 2 è‰²(RG) ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£å½¢å¼ å„ãƒãƒ£ãƒ³ãƒãƒ« 32 ãƒ“ãƒƒãƒˆã®æµ®å‹•å°æ•°ç‚¹
 		//RGBAFloat,			// RGB color and alpha texture format, 32 - bit floats per channel.
 		//RG16,				// Two color(RG) texture format, 8 - bits per channel.
 		//R8,					// Single channel(R) texture format, 8 bit integer.

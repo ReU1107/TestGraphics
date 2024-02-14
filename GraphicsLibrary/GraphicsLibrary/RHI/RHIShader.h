@@ -2,9 +2,8 @@
 
 namespace Alpha
 {
-	class RHIFence
+	class RHIShader
 	{
 
 	};
-
 }

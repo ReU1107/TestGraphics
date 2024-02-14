@@ -1,12 +1,12 @@
-#pragma once
+ï»¿#pragma once
 #include "Vector.h"
 
 
 namespace Alpha
 {
 	/*
-	Row:s
-	Column:—ñ
+	Row:è¡Œ
+	Column:åˆ—
 	*/
 
 	template<class Type, uint32_t Row, uint32_t Column>
@@ -22,11 +22,11 @@ namespace Alpha
 		static const TMatrix<Type, Row, Column> Zero;
 		static const TMatrix<Type, Row, Column> Identity;
 
-		// ƒpƒ‰ƒ[ƒ^ƒpƒbƒN“WŠJ—pŠÖ”
+		// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ‘ãƒƒã‚¯å±•é–‹ç”¨é–¢æ•°
 		void Expansion(size_t& index)
 		{
 		}
-		// ƒpƒ‰ƒ[ƒ^ƒpƒbƒN“WŠJ—pŠÖ”
+		// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ‘ãƒƒã‚¯å±•é–‹ç”¨é–¢æ•°
 		template<typename Head, typename... Tail>
 		void Expansion(size_t& index, Head&& head, Tail&&... tail)
 		{

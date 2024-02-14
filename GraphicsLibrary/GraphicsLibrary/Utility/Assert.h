@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 #include <cstdint>
 
 namespace Alpha
 {
 	/*
-	* ˆø”‚Ì•]‰¿Ž®‚ªfalse‚ÌŽž‚ÉŒÄ‚Î‚ê‚Ü‚·B
+	* å¼•æ•°ã®è©•ä¾¡å¼ãŒfalseã®æ™‚ã«å‘¼ã°ã‚Œã¾ã™ã€‚
 	*/
 	void Assert(bool exp)
 	{
@@ -15,8 +15,8 @@ namespace Alpha
 	{
 #if _DEBUG
 		/*
-		* ƒfƒoƒbƒOƒ‚[ƒh‚ÌŽž‚Éƒ`ƒFƒbƒN‚µ‚Ü‚·B
-		* Release‚ÌŽž‚ÍA’´‚¦‚È‚¢‚±‚Æ‚ªŠm’è‚µ‚Ä‚¢‚È‚¢‚Æ‚¢‚¯‚È‚¢B
+		* ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰ã®æ™‚ã«ãƒã‚§ãƒƒã‚¯ã—ã¾ã™ã€‚
+		* Releaseã®æ™‚ã¯ã€è¶…ãˆãªã„ã“ã¨ãŒç¢ºå®šã—ã¦ã„ãªã„ã¨ã„ã‘ãªã„ã€‚
 		*/
 		if (index >= max)
 		{

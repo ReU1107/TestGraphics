@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include <cstdint>
 
 namespace Alpha
 {
 	/*
-	* ˆê’iŠKƒNƒ‰ƒX‚ğ‹²‚ñ‚¾‚ç¡‚Å‚«‚Ä‚¢‚È‚¢XZ()‚Æ‚©‚Å‚«‚»‚¤
-	* ¡‚Å‚«‚È‚¢——R‚ªŒ»ó@XY() YZ()‚Ì‚æ‚¤‚Éƒƒ‚ƒŠ‚ª˜A‘±‚µ‚Ä‚¢‚é‚±‚Æ‚ğ‘O’ñ‚Æ‚µ‚ÄQÆ‚ğ“n‚µ‚Ä‚¢‚é‚©‚ç
+	* ä¸€æ®µéšã‚¯ãƒ©ã‚¹ã‚’æŒŸã‚“ã ã‚‰ä»Šã§ãã¦ã„ãªã„XZ()ã¨ã‹ã§ããã†
+	* ä»Šã§ããªã„ç†ç”±ãŒç¾çŠ¶ã€€XY() YZ()ã®ã‚ˆã†ã«ãƒ¡ãƒ¢ãƒªãŒé€£ç¶šã—ã¦ã„ã‚‹ã“ã¨ã‚’å‰æã¨ã—ã¦å‚ç…§ã‚’æ¸¡ã—ã¦ã„ã‚‹ã‹ã‚‰
 	*/
 
 	template<class Type, uint32_t N>
@@ -74,11 +74,11 @@ namespace Alpha
 		inline Type At(const uint32_t index) const;
 
 	private:
-		// ƒpƒ‰ƒ[ƒ^ƒpƒbƒN“WŠJ—pŠÖ”
+		// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ‘ãƒƒã‚¯å±•é–‹ç”¨é–¢æ•°
 		void Expansion(size_t& index)
 		{
 		}
-		// ƒpƒ‰ƒ[ƒ^ƒpƒbƒN“WŠJ—pŠÖ”
+		// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ‘ãƒƒã‚¯å±•é–‹ç”¨é–¢æ•°
 		template<typename Head, typename... Tail>
 		void Expansion(size_t& index, Head&& head, Tail&&... tail)
 		{
@@ -137,7 +137,7 @@ namespace Alpha
 	template<class Type, uint32_t N>
 	static inline bool operator==(const TVector<Type, N>& lhs, const TVector<Type, N>& rhs);
 
-	// ƒGƒCƒŠƒAƒX
+	// ã‚¨ã‚¤ãƒªã‚¢ã‚¹
 	using Vector1 = TVector<float, 1>;
 	using Vector2 = TVector<float, 2>;
 	using Vector3 = TVector<float, 3>;

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <cstdint>
 
 namespace Alpha
@@ -11,7 +11,7 @@ namespace Alpha
 		virtual ~RHISwapchain() {}
 
 		virtual void Begin() = 0;
-		// Present�܂�
+		// Present含む
 		virtual void End() = 0;
 
 		virtual uint32_t GetCurrentBackBufferIndex() const = 0;

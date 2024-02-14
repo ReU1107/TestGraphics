@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "VulkanDevice.h"
 #include "RHI/RHICommandBuffer.h"
 #include <vector>
@@ -7,9 +7,9 @@ namespace Alpha
 {
 	struct VulkanCommand
 	{
-		VkCommandBuffer Buffer{ VK_NULL_HANDLE };		// ƒRƒ}ƒ“ƒh‚ğÏ‚Şƒoƒbƒtƒ@
-		VkSemaphore SignalSemaphore{ VK_NULL_HANDLE };	// Ï‚ñ‚¾ƒRƒ}ƒ“ƒh‚ğˆ—‚µ‚Ä‘Ò‹@‚³‚¹‚é
-		//std::vector<VkSemaphore> WaitSemaphores{};			// ‚±‚ÌƒRƒ}ƒ“ƒh‚ªˆ—‚·‚é‘O‚É‘Ò‚½‚È‚¢‚Æ‚¢‚¯‚È‚¢ƒZƒ}ƒtƒHŒQ
+		VkCommandBuffer Buffer{ VK_NULL_HANDLE };		// ã‚³ãƒãƒ³ãƒ‰ã‚’ç©ã‚€ãƒãƒƒãƒ•ã‚¡
+		VkSemaphore SignalSemaphore{ VK_NULL_HANDLE };	// ç©ã‚“ã ã‚³ãƒãƒ³ãƒ‰ã‚’å‡¦ç†ã—ã¦å¾…æ©Ÿã•ã›ã‚‹
+		//std::vector<VkSemaphore> WaitSemaphores{};			// ã“ã®ã‚³ãƒãƒ³ãƒ‰ãŒå‡¦ç†ã™ã‚‹å‰ã«å¾…ãŸãªã„ã¨ã„ã‘ãªã„ã‚»ãƒãƒ•ã‚©ç¾¤
 	};
 
 	class VulkanCommandBuffer : public RHICommandBuffer, public VulkanDeviceObject
@@ -34,11 +34,13 @@ namespace Alpha
 
 		VkSemaphore GetCurrentSemaphore() const;
 
+		virtual void CopyBuffer(RHIBuffer* src, RHIBuffer* dst) override final;
+
 		virtual void Clear(RHISwapchain* swapchain_) override final;
 
 		virtual void Transition(RHISwapchain* swapchain_) override final;
 
-		// ‰¼‘zŠÖ”
+		// ä»®æƒ³é–¢æ•°
 		virtual void Begin(uint32_t) override final;
 
 		virtual void End() override final;

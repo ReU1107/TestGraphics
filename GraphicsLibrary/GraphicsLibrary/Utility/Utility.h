@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Alpha
 {
@@ -8,7 +8,7 @@ namespace Alpha
 		return ((base + alignment - 1) / alignment) * alignment;
 	}
 
-	// ˆø”–¢g—p‚ÌŒx‘Îô
+	// å¼•æ•°æœªä½¿ç”¨ã®è­¦å‘Šå¯¾ç­–
 	template<typename T>
 	inline void UnusedArgment(T t)
 	{
@@ -16,7 +16,7 @@ namespace Alpha
 	}
 
 	/*
-	* ƒCƒ“ƒfƒbƒNƒX‚Ì•ÏX(0,1)
+	* ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®å¤‰æ›´(0,1)
 	*/
 	template<typename T>
 	inline void SwapIndex(T& current)
@@ -25,7 +25,7 @@ namespace Alpha
 	}
 
 	/*
-	* index‚Ì•ÏX(0`max)
+	* indexã®å¤‰æ›´(0ï½max)
 	*/
 	template<typename T, typename U = T>
 	inline void SwapIndex(T& current, const U max)
@@ -34,13 +34,13 @@ namespace Alpha
 	}
 
 	/**
-	 * @brief “ñ‚Â‚Ì’l‚ğ”äŠr‚µ‚ÄA”äŠr‚ªˆê’v‚µ‚Ä‚¢‚é‚È‚çˆø”1‚ğA•sˆê’v‚È‚çˆø”2‚ğ•Ô‚·ŠÖ”
+	 * @brief äºŒã¤ã®å€¤ã‚’æ¯”è¼ƒã—ã¦ã€æ¯”è¼ƒãŒä¸€è‡´ã—ã¦ã„ã‚‹ãªã‚‰å¼•æ•°1ã‚’ã€ä¸ä¸€è‡´ãªã‚‰å¼•æ•°2ã‚’è¿”ã™é–¢æ•°
 	 *
-	 * @tparam T ˆø”‚ÌŒ^
-	 * @tparam U ˆø”‚ÌŒ^
-	 * @param lhs ”äŠr‘ÎÛ1
-	 * @param rhs ”äŠr‘ÎÛ2
-	 * @return T ”äŠr‚ªˆê’v‚µ‚Ä‚¢‚é‚È‚çˆø”3‚ğA•sˆê’v‚È‚çˆø”4‚ğ•Ô‚·
+	 * @tparam T å¼•æ•°ã®å‹
+	 * @tparam U å¼•æ•°ã®å‹
+	 * @param lhs æ¯”è¼ƒå¯¾è±¡1
+	 * @param rhs æ¯”è¼ƒå¯¾è±¡2
+	 * @return T æ¯”è¼ƒãŒä¸€è‡´ã—ã¦ã„ã‚‹ãªã‚‰å¼•æ•°3ã‚’ã€ä¸ä¸€è‡´ãªã‚‰å¼•æ•°4ã‚’è¿”ã™
 	 * rt = result true
 	 * rf = result false
 	 */

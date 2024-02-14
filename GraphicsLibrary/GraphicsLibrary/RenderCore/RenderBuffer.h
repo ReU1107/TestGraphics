@@ -40,8 +40,8 @@ namespace Alpha
 	/*
 	* Uniform,Constant 同じように使えますが、
 	* Uniformは少ないサイズを頻繁に更新する
-	* Constantは大きいサイズをあまり更新しないイメージで使ってください。
-	* そこまでこだわらなくていいです。
+	* Constant更新しない(GPUのみ)
+	* Stagingは受け渡し用の一時バッファです
 	*/
 
 	//class RenderBuffer

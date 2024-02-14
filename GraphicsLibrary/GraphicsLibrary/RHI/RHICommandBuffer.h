@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <cstdint>
 
 namespace Alpha
@@ -7,7 +7,7 @@ namespace Alpha
 	class RHITexture;
 	class RHIBuffer;
 
-	// •¡”‚ÌƒRƒ}ƒ“ƒhƒoƒbƒtƒ@ƒIƒuƒWƒFƒNƒg‚ğ‚Â
+	// è¤‡æ•°ã®ã‚³ãƒãƒ³ãƒ‰ãƒãƒƒãƒ•ã‚¡ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æŒã¤
 	class RHICommandBuffer
 	{
 	public:
@@ -16,6 +16,8 @@ namespace Alpha
 		virtual void Begin(uint32_t) = 0;
 
 		virtual void End() = 0;
+
+		virtual void CopyBuffer(RHIBuffer* src, RHIBuffer* dst) = 0;
 
 		virtual void Clear(RHISwapchain* swapchain_) = 0;
 		//virtual void Clear(RHITexture* texture_) = 0;

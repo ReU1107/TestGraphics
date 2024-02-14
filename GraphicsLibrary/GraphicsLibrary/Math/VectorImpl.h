@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #pragma once
 #include "Vector.h"
 #include <cassert>
 
 namespace Alpha
 {
-	// “ÁŽê‰»
+	// ç‰¹æ®ŠåŒ–
 	template<>
 	const TVector<uint32_t, 1> TVector<uint32_t, 1>::Zero = TVector<uint32_t, 1>(0);
 	const TVector<uint32_t, 2> TVector<uint32_t, 2>::Zero = TVector<uint32_t, 2>(0, 0);

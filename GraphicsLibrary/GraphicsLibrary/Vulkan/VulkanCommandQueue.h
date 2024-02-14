@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "VulkanDevice.h"
 #include "RHI/RHICommandQueue.h"
 
@@ -27,7 +27,7 @@ namespace Alpha
 		virtual void Begin() override;
 		// 
 		virtual void SetWaitSemaphore(RHISwapchain* swapchain_) override;
-		// ‚¢‚Â‚©‚±‚Á‚¿‚É•Ï‚¦‚é
+		// ã„ã¤ã‹ã“ã£ã¡ã«å¤‰ãˆã‚‹
 		//virtual void SetWaitSemaphore(RHISemaphore* semaphore_);
 
 		virtual void ExecuteCommandBuffer(RHICommandBuffer* command_buffer_) override;

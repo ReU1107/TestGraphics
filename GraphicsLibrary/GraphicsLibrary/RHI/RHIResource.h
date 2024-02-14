@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <cstdint>
 #include "RHITypes.h"
 namespace Alpha
@@ -19,9 +19,9 @@ namespace Alpha
 		}
 		virtual ~RHIResource() {}
 
-		// ƒ^ƒCƒvæ“¾
+		// ã‚¿ã‚¤ãƒ—å–å¾—
 		ERHIResourceType GetType() const { return m_type; }
-		// ó‘Ôæ“¾
+		// çŠ¶æ…‹å–å¾—
 		ERHIResourceState GetState() const { return m_state; }
 	};
 
@@ -42,13 +42,12 @@ namespace Alpha
 		}
 		virtual ~RHIBuffer() {}
 
-		// ƒoƒbƒtƒ@ƒXƒgƒ‰ƒCƒhæ“¾
+		// ãƒãƒƒãƒ•ã‚¡ã‚¹ãƒˆãƒ©ã‚¤ãƒ‰å–å¾—
 		uint32_t GetStride() const { return mStride; }
-		// ƒTƒCƒYæ“¾
+		// ã‚µã‚¤ã‚ºå–å¾—
 		uint32_t GetSize() const { return mSize; }
-		// ƒoƒbƒtƒ@g—p–@æ“¾
+		// ãƒãƒƒãƒ•ã‚¡ä½¿ç”¨æ³•å–å¾—
 		EBufferUsage GetUsage() const { return m_usage; }
-
 
 		virtual void CreateObject() = 0;
 		virtual void TransferData(void* transfer_data) = 0;
@@ -71,9 +70,9 @@ namespace Alpha
 		}
 		virtual ~RHITexture() {}
 
-		// •æ“¾
+		// å¹…å–å¾—
 		uint32_t GetWidth() const { return m_width; }
-		// ‚‚³æ“¾
+		// é«˜ã•å–å¾—
 		uint32_t GetHeight() const { return m_height; }
 	};
 

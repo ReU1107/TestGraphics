@@ -1,6 +1,7 @@
-#include "VulkanCommandBuffer.h"
+﻿#include "VulkanCommandBuffer.h"
 
 #include "VulkanSwapchain.h"
+#include "VulkanBuffer.h"
 
 namespace Alpha
 {
@@ -84,6 +85,22 @@ namespace Alpha
 	VkSemaphore VulkanCommandBuffer::GetCurrentSemaphore() const
 	{
 		return mCurrentSemaphore;
+	}
+
+	void VulkanCommandBuffer::CopyBuffer(RHIBuffer* src, RHIBuffer* dst)
+	{
+		auto dst_buffer = static_cast<VulkanBuffer*>(dst);
+		auto src_buffer = static_cast<VulkanBuffer*>(src);
+
+		auto dst_native = dst_buffer->GetNative();
+		auto src_native = src_buffer->GetNative();
+
+		VkBufferCopy copy_region = {};
+
+		copy_region.size = dst_buffer->GetSize();
+		VkCommandBuffer command_buffer = mCurrentBuffer;
+
+		vkCmdCopyBuffer(command_buffer, src_native, dst_native, 1, &copy_region);
 	}
 
 	void VulkanCommandBuffer::Clear(RHISwapchain* swapchain_)

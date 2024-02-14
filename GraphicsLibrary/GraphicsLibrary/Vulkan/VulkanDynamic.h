@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "RHI/RHIDynamic.h"
 #if RHI_VK
 namespace Alpha
@@ -26,6 +26,7 @@ namespace Alpha
 
 		virtual RHICommandQueue* CreateCommandQueue(RHICommandQueueDesc& desc) override;
 
+		virtual RHIShader* CreateShader(RHIShaderDesc& desc) override;
 
 	private:
 		VulkanDevice* mDevice;

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <cstdint>
 
 namespace Alpha
@@ -18,7 +18,7 @@ namespace Alpha
 
 		~RawPtr()
 		{
-			// ‚±‚ÌƒNƒ‰ƒX‚Íƒ|ƒCƒ“ƒ^[æ‚ÌŠÇ—Ò‚Å‚Í‚È‚¢‚½‚ßdelete‚ğŒÄ‚Î‚È‚¢
+			// ã“ã®ã‚¯ãƒ©ã‚¹ã¯ãƒã‚¤ãƒ³ã‚¿ãƒ¼å…ˆã®ç®¡ç†è€…ã§ã¯ãªã„ãŸã‚deleteã‚’å‘¼ã°ãªã„
 			m_addr = nullptr;
 		}
 

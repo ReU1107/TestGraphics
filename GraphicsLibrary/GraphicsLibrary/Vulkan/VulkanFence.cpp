@@ -1,4 +1,4 @@
-#include "VulkanFence.h"
+﻿#include "VulkanFence.h"
 
 namespace Alpha
 {

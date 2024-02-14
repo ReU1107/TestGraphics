@@ -13,6 +13,9 @@
 #include "Vulkan/VulkanCommandBuffer.h"
 #include "Vulkan/VulkanCommandQueue.h"
 
+#include "Vulkan/VulkanBuffer.h"
+#include "Math/Vector.h"
+
 namespace Alpha
 {
 	//Swapchain* swapchain = nullptr;
@@ -21,7 +24,12 @@ namespace Alpha
 
 	RHISwapchain* swapchain = nullptr;
 	RHICommandBuffer* list = nullptr;
+	RHICommandBuffer* copy_list = nullptr;
 	RHICommandQueue* queue = nullptr;
+	RHICommandQueue* copy = nullptr;
+
+	RHIBuffer* vertex_buffer = nullptr;
+	RHIBuffer* vertex_staging_buffer = nullptr;
 
 	RenderCore::RenderCore(HWND hWnd)
 	{
@@ -35,13 +43,44 @@ namespace Alpha
 
 		{
 			RHICommandBufferDesc desc;
+			desc.Count = 3;
 			list = RHIBuilder::CreateCommandBuffer(desc);
+			desc.Count = 1;
+			copy_list = RHIBuilder::CreateCommandBuffer(desc);
 		}
-		
+
 		{
 			RHICommandQueueDesc desc = {};
 			queue = RHIBuilder::CreateCommandQueue(desc);
+
 		}
+
+		{
+			RHIBufferDesc desc = {};
+			desc.Usage = EBufferUsage::Vertex;
+			desc.Stride = sizeof(float3);
+			desc.Size = desc.Stride * 3;
+			vertex_buffer = RHIBuilder::CreateBuffer(desc);
+			desc.Usage = EBufferUsage::Staging;
+			vertex_staging_buffer = RHIBuilder::CreateBuffer(desc);
+		}
+		std::vector<float3> vertices = {
+			float3(0.0f,0.5f,0.0f),
+			float3(0.5f,-0.5f,0.0f),
+			float3(-0.5f,-0.5f,0.0f)
+		};
+
+		vertex_staging_buffer->TransferData(vertices.data());
+
+		copy_list->Begin(0);
+		copy_list->CopyBuffer(vertex_staging_buffer, vertex_buffer);
+
+		copy_list->End();
+
+		queue->Begin();
+		queue->ExecuteCommandBuffer(copy_list);
+		queue->Wait();
+
 
 	}
 

@@ -1,4 +1,4 @@
-#include "VulkanDevice.h"
+ï»¿#include "VulkanDevice.h"
 #include <vector>
 #include <string>
 #include <sstream>
@@ -58,22 +58,39 @@ namespace Alpha
 		return false;
 	}
 
+	uint32_t VulkanDevice::GetMemoryTypeIndex(uint32_t requirements, const VkMemoryPropertyFlags flag) const
+	{
+		uint32_t count = mProperties.memoryTypeCount;
+		for (uint32_t i = 0; i < count; i++)
+		{
+			if ((requirements & 1) == 1)
+			{
+				if ((mProperties.memoryTypes[i].propertyFlags & flag) == flag)
+				{
+					return i;
+				}
+			}
+			requirements >>= 1;
+		}
+		return 0;
+	}
+
 	void VulkanDevice::CreateInstance()
 	{
 		VkApplicationInfo application_info = {};
 		application_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
 		application_info.pNext = nullptr;
-		//ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ì–¼‘O
+		//ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®åå‰
 		application_info.pApplicationName = "TestVulkan";
-		//ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ìƒo[ƒWƒ‡ƒ“
+		//ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 		application_info.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-		//ƒGƒ“ƒWƒ“‚Ì–¼‘O
+		//ã‚¨ãƒ³ã‚¸ãƒ³ã®åå‰
 		application_info.pEngineName = "engine";
-		//ƒGƒ“ƒWƒ“‚Ìƒo[ƒWƒ‡ƒ“;
+		//ã‚¨ãƒ³ã‚¸ãƒ³ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³;
 		application_info.engineVersion = VK_MAKE_VERSION(1, 0, 0);
-		//g—p‚·‚éVulkan‚Ìƒo[ƒWƒ‡ƒ“‚ğVulkan 1.3‚É‚·‚é
+		//ä½¿ç”¨ã™ã‚‹Vulkanã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’Vulkan 1.3ã«ã™ã‚‹
 		application_info.apiVersion = VK_API_VERSION_1_3;
-		//ƒoƒŠƒf[ƒVƒ‡ƒ“ƒŒƒCƒ„[‚ğg‚¤
+		//ãƒãƒªãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ä½¿ã†
 		std::vector< const char* > layers
 		{
 			"VK_LAYER_KHRONOS_validation"
@@ -90,16 +107,16 @@ namespace Alpha
 		instance_info.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 		instance_info.pNext = nullptr;
 		instance_info.flags = 0;
-		// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ìî•ñ‚ğw’è
+		// ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®æƒ…å ±ã‚’æŒ‡å®š
 		instance_info.pApplicationInfo = &application_info;
-		// g—p‚·‚éƒŒƒCƒ„[‚ğw’è
+		// ä½¿ç”¨ã™ã‚‹ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æŒ‡å®š
 		instance_info.enabledLayerCount = (uint32_t)layers.size();
 		instance_info.ppEnabledLayerNames = layers.data();
-		// Šg’£
+		// æ‹¡å¼µ
 		instance_info.enabledExtensionCount = (uint32_t)extensions.size();
 		instance_info.ppEnabledExtensionNames = extensions.data();
 		VkInstance instance;
-		// ƒCƒ“ƒXƒ^ƒ“ƒX‚ğì¬
+		// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆ
 		
 		auto result = vkCreateInstance(&instance_info,
 			nullptr,
@@ -115,13 +132,13 @@ namespace Alpha
 	void VulkanDevice::CreateDevice()
 	{
 		auto instance = mInstance;
-		// •¨—ƒfƒoƒCƒX(GPU‚Ìæ“¾)
-		// ƒfƒoƒCƒX‚ÌŒÂ”‚ğæ“¾
+		// ç‰©ç†ãƒ‡ãƒã‚¤ã‚¹(GPUã®å–å¾—)
+		// ãƒ‡ãƒã‚¤ã‚¹ã®å€‹æ•°ã‚’å–å¾—
 		uint32_t device_count = 0;
 		if (vkEnumeratePhysicalDevices(instance, &device_count, nullptr) != VK_SUCCESS)
 		{
 		}
-		// ƒfƒoƒCƒX‚Ìî•ñ‚ğæ“¾
+		// ãƒ‡ãƒã‚¤ã‚¹ã®æƒ…å ±ã‚’å–å¾—
 		std::vector< VkPhysicalDevice > devices(device_count);
 
 		if (vkEnumeratePhysicalDevices(instance, &device_count, devices.data()) != VK_SUCCESS)
@@ -135,7 +152,7 @@ namespace Alpha
 		vkGetPhysicalDeviceQueueFamilyProperties(physical_device, &queue_props_count, queue_props.data());
 
 		uint32_t queue_family_index = 0;
-		// ƒOƒ‰ƒtƒBƒbƒNƒX—v‹‚ğó‚¯•t‚¯‚éƒLƒ…[‚ğ’T‚·
+		// ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚¹è¦æ±‚ã‚’å—ã‘ä»˜ã‘ã‚‹ã‚­ãƒ¥ãƒ¼ã‚’æ¢ã™
 		for (uint32_t i = 0; i < queue_props.size(); ++i)
 		{
 			if (queue_props[i].queueFlags & VkQueueFlagBits::VK_QUEUE_GRAPHICS_BIT)
@@ -147,7 +164,7 @@ namespace Alpha
 		mGraphicsQueueFamilyIndex = queue_family_index;
 
 		const float priority = 0.0f;
-		// ƒfƒoƒCƒXƒLƒ…[
+		// ãƒ‡ãƒã‚¤ã‚¹ã‚­ãƒ¥ãƒ¼
 		VkDeviceQueueCreateInfo queue_info = {};
 		queue_info.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
 		queue_info.pNext = nullptr;
@@ -158,10 +175,10 @@ namespace Alpha
 
 		
 		std::vector< const char* > extension{
-			"VK_KHR_swapchain",	// Swapchain‚ğì¬‚·‚é‚Ì‚É•K—v
+			"VK_KHR_swapchain",	// Swapchainã‚’ä½œæˆã™ã‚‹ã®ã«å¿…è¦
 		};
 
-		// ˜_—ƒfƒoƒCƒX‚ğì‚é
+		// è«–ç†ãƒ‡ãƒã‚¤ã‚¹ã‚’ä½œã‚‹
 		VkDeviceCreateInfo device_info = {};
 		device_info.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
 		device_info.pNext = nullptr;
@@ -198,5 +215,10 @@ namespace Alpha
 		dbgCreateInfo.flags = VK_DEBUG_REPORT_ERROR_BIT_EXT | VK_DEBUG_REPORT_WARNING_BIT_EXT;
 
 		VkResult err = g_fCreateDebugReportCallback(instance, &dbgCreateInfo, nullptr, &g_fMsgCallback);
+
+		VkPhysicalDeviceMemoryProperties properties = {};
+		vkGetPhysicalDeviceMemoryProperties(physical_device, &properties);
+
+		mProperties = properties;
 	}
 }

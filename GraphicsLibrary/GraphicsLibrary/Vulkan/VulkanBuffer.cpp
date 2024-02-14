@@ -1,4 +1,4 @@
-#include "VulkanBuffer.h"
+ï»¿#include "VulkanBuffer.h"
 #include <string.h>
 #include <vector>
 namespace Alpha
@@ -22,7 +22,7 @@ namespace Alpha
 			flags |= VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
 		}
 
-		// ƒXƒe[ƒWƒ“ƒOƒoƒbƒtƒ@ˆÈŠO‚ÍŠî–{“I‚ÉDSTw’è
+		// ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ³ã‚°ãƒãƒƒãƒ•ã‚¡ä»¥å¤–ã¯åŸºæœ¬çš„ã«DSTæŒ‡å®š
 		if (EnumHasFlag(usage, EBufferUsage::Staging))
 		{
 			flags |= VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
@@ -30,6 +30,24 @@ namespace Alpha
 		else
 		{
 			flags |= VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+		}
+
+
+		return flags;
+	}
+
+	static VkMemoryPropertyFlags GetVkPropertyFlags(const EBufferUsage usage)
+	{
+		int flags = {};
+
+		// ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ³ã‚°ãƒãƒƒãƒ•ã‚¡ä»¥å¤–ã¯åŸºæœ¬çš„ã«DSTæŒ‡å®š
+		if (EnumHasFlag(usage, EBufferUsage::Staging))
+		{
+			flags |= VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+		}
+		else
+		{
+			flags |= VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
 		}
 
 
@@ -58,7 +76,7 @@ namespace Alpha
 	{
 		auto device = GetVkLogicalDevice();
 
-		// ƒoƒbƒtƒ@ƒIƒuƒWƒFƒNƒgì¬
+		// ãƒãƒƒãƒ•ã‚¡ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä½œæˆ
 		VkBufferCreateInfo buffer_info = {};
 		buffer_info.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
 		buffer_info.size = GetSize();
@@ -66,25 +84,32 @@ namespace Alpha
 		buffer_info.usage = GetVkUsageFlags(GetUsage());
 
 		VkBuffer buffer = VK_NULL_HANDLE;
-		vkCreateBuffer(device, &buffer_info, nullptr, &buffer);
+		auto result = vkCreateBuffer(device, &buffer_info, nullptr, &buffer);
+		if (result != VK_SUCCESS)
+		{
 
+		}
 
-		// ƒƒ‚ƒŠ‚ÌŠm•Û
+		// ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
 		VkMemoryAllocateInfo memory_info{};
 		memory_info.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 		VkMemoryRequirements memory_requirements = {};
 		vkGetBufferMemoryRequirements(device, buffer, &memory_requirements);
+		
 		memory_info.allocationSize = memory_requirements.size;
-
-		//VkPhysicalDeviceMemoryProperties;
-		//vkGetPhysicalDeviceMemoryProperties();
-		//memory_info.memoryTypeIndex = (memory_requirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+		memory_info.memoryTypeIndex = GetMemoryTypeIndex(memory_requirements.memoryTypeBits, GetVkPropertyFlags(GetUsage()));
 		VkDeviceMemory memory = VK_NULL_HANDLE;
-		vkAllocateMemory(device, &memory_info, nullptr, &memory);
+		result = vkAllocateMemory(device, &memory_info, nullptr, &memory);
+		if (result != VK_SUCCESS)
+		{
 
-		// ƒoƒbƒtƒ@‚Æƒƒ‚ƒŠ‚ÌŠÖ˜A•t‚¯
-		vkBindBufferMemory(device, buffer, memory, 0);
+		}
+		// ãƒãƒƒãƒ•ã‚¡ã¨ãƒ¡ãƒ¢ãƒªã®é–¢é€£ä»˜ã‘
+		result = vkBindBufferMemory(device, buffer, memory, 0);
+		if (result != VK_SUCCESS)
+		{
 
+		}
 		mBuffer = buffer;
 		mMemory = memory;
 		mMemorySize = memory_info.allocationSize;
@@ -95,7 +120,7 @@ namespace Alpha
 		auto device = GetVkLogicalDevice();
 		auto memory = mMemory;
 		auto size = mMemorySize;
-		// ƒf[ƒ^‚ÌƒRƒs[
+		// ãƒ‡ãƒ¼ã‚¿ã®ã‚³ãƒ”ãƒ¼
 		void* data = nullptr;
 		auto result = vkMapMemory(device, memory, 0, size, 0, &data);
 		if (result != VK_SUCCESS)

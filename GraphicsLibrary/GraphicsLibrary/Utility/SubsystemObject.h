@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <cassert>
 namespace Alpha
 {
@@ -9,11 +9,11 @@ namespace Alpha
 	private:
 		static T* s_instance;
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		SubsystemObject()
 		{
 		}
-		// ƒfƒXƒgƒ‰ƒNƒ^
+		// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		virtual ~SubsystemObject()
 		{
 		};

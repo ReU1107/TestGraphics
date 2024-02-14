@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <vulkan/vulkan.h>
 
 
@@ -9,24 +9,28 @@ namespace Alpha
 	public:
 		VulkanDevice();
 		~VulkanDevice();
-		// ƒCƒ“ƒXƒ^ƒ“ƒXŽæ“¾
+		// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å–å¾—
 		VkInstance GetVkInstance() const { return mInstance; }
-		// •¨—ƒfƒoƒCƒXŽæ“¾
+		// ç‰©ç†ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 		VkPhysicalDevice GetVkPhysicalDevice() const { return mPhysicalDevice; }
-		// ˜_—ƒfƒoƒCƒXŽæ“¾
+		// è«–ç†ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 		VkDevice GetVkDevice() const { return mDevice; }
 		// 
 		uint32_t GetGraphicsQueueFamilyIndex() const { return mGraphicsQueueFamilyIndex; }
+
+		uint32_t GetMemoryTypeIndex(uint32_t requirements, const VkMemoryPropertyFlags flag) const;
+
 	private:
-		// ƒCƒ“ƒXƒ^ƒ“ƒXì¬
+		// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ä½œæˆ
 		void CreateInstance();
-		// •¨—,˜_—ƒfƒoƒCƒXì¬
+		// ç‰©ç†,è«–ç†ãƒ‡ãƒã‚¤ã‚¹ä½œæˆ
 		void CreateDevice();
 
 	private:
 		VkDevice mDevice{ VK_NULL_HANDLE };						// 
 		VkPhysicalDevice mPhysicalDevice{ VK_NULL_HANDLE };		//
 		VkInstance mInstance{ VK_NULL_HANDLE };					// 
+		VkPhysicalDeviceMemoryProperties mProperties{};			// 
 		uint32_t mGraphicsQueueFamilyIndex{ 0 };				// 
 		uint32_t mComputeQueueFamilyIndex{ 0 };					// 
 	};
@@ -45,14 +49,16 @@ namespace Alpha
 		}
 
 	protected:
-		// ƒCƒ“ƒXƒ^ƒ“ƒXŽæ“¾
+		// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å–å¾—
 		VkInstance GetVkInstance() const { return mDevice->GetVkInstance(); }
-		// •¨—ƒfƒoƒCƒXŽæ“¾
+		// ç‰©ç†ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 		VkPhysicalDevice GetVkPhysicalDevice() const { return mDevice->GetVkPhysicalDevice(); }
-		// ˜_—ƒfƒoƒCƒXŽæ“¾
+		// è«–ç†ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 		VkDevice GetVkLogicalDevice() const { return mDevice->GetVkDevice(); }
 
 		uint32_t GetGraphicsQueueFamilyIndex() const { return mDevice->GetGraphicsQueueFamilyIndex(); }
+
+		uint32_t GetMemoryTypeIndex(uint32_t requirements, const VkMemoryPropertyFlags flag)  const { return mDevice->GetMemoryTypeIndex(requirements, flag); }
 
 	private:
 		VulkanDevice* mDevice{ nullptr };		// 

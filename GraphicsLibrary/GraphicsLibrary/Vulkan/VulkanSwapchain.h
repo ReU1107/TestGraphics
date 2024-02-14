@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "VulkanDevice.h"
 #include "RHI/RHISwapchain.h"
 
@@ -14,8 +14,8 @@ namespace Alpha
 	{
 		VkImage Image{ VK_NULL_HANDLE };				// 
 		VkImageView ImageView{ VK_NULL_HANDLE };		// 
-		VkSemaphore SignalSemaphore{ VK_NULL_HANDLE };	// Present‚ğ‘Ò‚½‚¹‚é
-		//VkSemaphore WaitSemaphore{ VK_NULL_HANDLE };	// Present‚ğ‚·‚é‚É‚±‚ÌƒZƒ}ƒtƒH‚ğ‚Âˆ—‚ğ‘Ò‚Âˆ×‚Ég—p‚·‚é(”z—ñ‚É‚È‚é‰Â”\«‚ ‚è)
+		VkSemaphore SignalSemaphore{ VK_NULL_HANDLE };	// Presentã‚’å¾…ãŸã›ã‚‹
+		//VkSemaphore WaitSemaphore{ VK_NULL_HANDLE };	// Presentã‚’ã™ã‚‹æ™‚ã«ã“ã®ã‚»ãƒãƒ•ã‚©ã‚’æŒã¤å‡¦ç†ã‚’å¾…ã¤ç‚ºã«ä½¿ç”¨ã™ã‚‹(é…åˆ—ã«ãªã‚‹å¯èƒ½æ€§ã‚ã‚Š)
 
 
 		VkImageSubresourceRange mSubresourceRange{};

@@ -236,6 +236,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Computer\Particle.h" />
+    <ClInclude Include="Computer\ParticleEmitter.h" />
+    <ClInclude Include="Computer\ParticleModule.h" />
     <ClInclude Include="Math\Matrix.h" />
     <ClInclude Include="Math\Vector.h" />
     <ClInclude Include="Math\VectorImpl.h" />
@@ -257,15 +260,25 @@
     <ClInclude Include="Resource\Texture.h" />
     <ClInclude Include="RHI\RHICommandBuffer.h" />
     <ClInclude Include="RHI\RHICommandQueue.h" />
+    <ClInclude Include="RHI\RHIDeclarations.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="RHI\RHIDefinitions.h" />
+    <ClInclude Include="RHI\RHIDescriptorHeap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="RHI\RHIDynamic.h" />
     <ClInclude Include="RHI\RHIFence.h" />
     <ClInclude Include="RHI\RHIRef.h" />
     <ClInclude Include="RHI\RHIResource.h" />
     <ClInclude Include="RHI\RHIResourceView.h" />
     <ClInclude Include="RHI\RHISemaphore.h" />
+    <ClInclude Include="RHI\RHIShader.h" />
     <ClInclude Include="RHI\RHIState.h" />
     <ClInclude Include="RHI\RHISwapchain.h" />
+    <ClInclude Include="RHI\RHITexture.h" />
     <ClInclude Include="RHI\RHITypes.h" />
     <ClInclude Include="Utility\Assert.h" />
     <ClInclude Include="Utility\BitFlags.h" />
@@ -279,10 +292,20 @@
     <ClInclude Include="Vulkan\VulkanBuffer.h" />
     <ClInclude Include="Vulkan\VulkanCommandBuffer.h" />
     <ClInclude Include="Vulkan\VulkanCommandQueue.h" />
+    <ClInclude Include="Vulkan\VulkanDescriptorHeap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Vulkan\VulkanDescriptorLayout.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Vulkan\VulkanDynamic.h" />
     <ClInclude Include="Vulkan\VulkanDevice.h" />
     <ClInclude Include="Vulkan\VulkanFence.h" />
+    <ClInclude Include="Vulkan\VulkanShader.h" />
     <ClInclude Include="Vulkan\VulkanSwapchain.h" />
+    <ClInclude Include="Vulkan\VulkanTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderCore\CommandList.cpp" />
@@ -298,9 +321,21 @@
     <ClCompile Include="Vulkan\VulkanBuffer.cpp" />
     <ClCompile Include="Vulkan\VulkanCommandBuffer.cpp" />
     <ClCompile Include="Vulkan\VulkanCommandQueue.cpp" />
+    <ClCompile Include="Vulkan\VulkanDescriptorHeap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Vulkan\VulkanDescriptorLayout.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Vulkan\VulkanDevice.cpp" />
     <ClCompile Include="Vulkan\VulkanDynamic.cpp" />
     <ClCompile Include="Vulkan\VulkanFence.cpp" />
+    <ClCompile Include="Vulkan\VulkanShader.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Vulkan\VulkanSwapchain.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
