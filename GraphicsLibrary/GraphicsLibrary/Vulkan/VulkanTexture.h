@@ -4,7 +4,7 @@
 
 namespace Alpha
 {
-	class VulkanTexture : public RHITexture, public VulkanDeviceObject
+	class VulkanTexture : public RHITexture, public VulkanDeviceChild
 	{
 	private:
 		VkImage mImage{ VK_NULL_HANDLE };

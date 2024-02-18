@@ -7,7 +7,7 @@ namespace Alpha
 {
 	VulkanCommandQueue::VulkanCommandQueue(VulkanDevice* device)
 		: RHICommandQueue()
-		, VulkanDeviceObject(device)
+		, VulkanDeviceChild(device)
 	{
 	}
 

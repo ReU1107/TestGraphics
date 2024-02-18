@@ -1,18 +1,9 @@
 #pragma once
+#include "RHI/RHIDeclarations.h"
 #include "RHI/RHIDefinitions.h"
 
 namespace Alpha
 {
-	class RHIBuffer;
-	class RHICommandList;
-	class RHIView;
-	class RHITexture;
-	class RHISwapchain;
-	class RHICommandBuffer;
-	class RHICommandQueue;
-	class RHIBuffer;
-
-
 	class RHIBuilder
 	{
 	public:
@@ -26,6 +17,12 @@ namespace Alpha
 		static RHICommandBuffer* CreateCommandBuffer(RHICommandBufferDesc& desc);
 		// 
 		static RHICommandQueue* CreateCommandQueue(RHICommandQueueDesc& desc);
+
+		static RHIDescriptorHeap* CreateDescriptorHeap(RHIDescriptorHeapDesc& desc);
+
+		static RHIDescriptorLayout* CreateDescriptorLayout(RHIDescriptorLayoutDesc& desc);
+
+		static RHIDescriptorView* CreateDescriptorView(RHIDescriptorViewDesc& desc);
 
 	};
 }

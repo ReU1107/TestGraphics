@@ -4,7 +4,7 @@
 
 namespace Alpha
 {
-	class VulkanDescriptorHeap : public RHIDescriptorHeap, public VulkanDeviceObject
+	class VulkanDescriptorHeap : public RHIDescriptorHeap, public VulkanDeviceChild
 	{
 	private:
 		VkDescriptorPool mPool{ VK_NULL_HANDLE };
@@ -13,7 +13,9 @@ namespace Alpha
 		VulkanDescriptorHeap(VulkanDevice* device);
 		~VulkanDescriptorHeap();
 
-		void Create(const RHIDescriptorHeapDesc& desc);
+		VkDescriptorPool GetNativeHandle() const { return mPool; }
+
+		virtual void Create(const RHIDescriptorHeapDesc& desc) override;
 
 
 	};

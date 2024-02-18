@@ -3,6 +3,9 @@
 
 namespace Alpha
 {
+#define CallCreateFunc(Func)\
+	return RHIDynamic::GetPtr()->Func##(desc)
+
 	RHIBuffer* RHIBuilder::CreateBuffer(RHIBufferDesc& desc)
 	{
 		return RHIDynamic::GetPtr()->CreateBuffer(desc);
@@ -26,6 +29,21 @@ namespace Alpha
 	RHICommandQueue* RHIBuilder::CreateCommandQueue(RHICommandQueueDesc& desc)
 	{
 		return RHIDynamic::GetPtr()->CreateCommandQueue(desc);
+	}
+
+	RHIDescriptorHeap* RHIBuilder::CreateDescriptorHeap(RHIDescriptorHeapDesc& desc)
+	{
+		CallCreateFunc(CreateDescriptorHeap);
+	}
+
+	RHIDescriptorLayout* RHIBuilder::CreateDescriptorLayout(RHIDescriptorLayoutDesc& desc)
+	{
+		CallCreateFunc(CreateDescriptorLayout);
+	}
+
+	RHIDescriptorView* RHIBuilder::CreateDescriptorView(RHIDescriptorViewDesc& desc)
+	{
+		CallCreateFunc(CreateDescriptorView);
 	}
 
 }

@@ -4,7 +4,7 @@
 
 namespace Alpha
 {
-	class VulkanBuffer : public RHIBuffer, public VulkanDeviceObject
+	class VulkanBuffer : public RHIBuffer, public VulkanDeviceChild
 	{
 	private:
 		VkDeviceMemory	mMemory{ VK_NULL_HANDLE };
@@ -15,7 +15,7 @@ namespace Alpha
 		VulkanBuffer(VulkanDevice* device, uint32_t stride, uint32_t size, EBufferUsage usage);
 		virtual ~VulkanBuffer();
 
-		VkBuffer GetNative() const { return mBuffer; }
+		VkBuffer GetNativeHandle() const { return mBuffer; }
 
 		virtual void CreateObject() override final;
 		virtual void TransferData(void* transfer_data) override final;

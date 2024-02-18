@@ -23,7 +23,7 @@ namespace Alpha
 		VkImageLayout NextLayout;
 	};
 
-	class VulkanSwapchain : public RHISwapchain, public VulkanDeviceObject
+	class VulkanSwapchain : public RHISwapchain, public VulkanDeviceChild
 	{
 	public:
 		VulkanSwapchain(VulkanDevice* device);
@@ -34,6 +34,7 @@ namespace Alpha
 
 
 		VkImage GetCurrentImage() const { return mBackBuffers.at(mCurrentImageIndex).Image; }
+		VkImageView GetCurrentImageView() const { return mBackBuffers.at(mCurrentImageIndex).ImageView; }
 
 		// 
 		VkSemaphore GetSignalSemaphore() const;

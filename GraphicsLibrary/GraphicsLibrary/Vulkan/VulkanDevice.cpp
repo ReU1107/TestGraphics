@@ -176,12 +176,19 @@ namespace Alpha
 		
 		std::vector< const char* > extension{
 			"VK_KHR_swapchain",	// Swapchainを作成するのに必要
+			VK_KHR_DYNAMIC_RENDERING_EXTENSION_NAME,
 		};
+		VkPhysicalDeviceDynamicRenderingFeaturesKHR dynamic_rendering = {};
+		dynamic_rendering.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES_KHR;
+		dynamic_rendering.dynamicRendering = true;
+
+		void* extension_next = &dynamic_rendering;
+
 
 		// 論理デバイスを作る
 		VkDeviceCreateInfo device_info = {};
 		device_info.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-		device_info.pNext = nullptr;
+		device_info.pNext = extension_next;
 		device_info.flags = 0;
 		device_info.queueCreateInfoCount = 1;
 		device_info.pQueueCreateInfos = &queue_info;
@@ -190,7 +197,7 @@ namespace Alpha
 		device_info.enabledExtensionCount = (uint32_t)extension.size();
 		device_info.ppEnabledExtensionNames = extension.data();
 		device_info.pEnabledFeatures = nullptr;
-		VkDevice device;
+		VkDevice device = VK_NULL_HANDLE;
 		auto result = vkCreateDevice(
 			physical_device,
 			&device_info,

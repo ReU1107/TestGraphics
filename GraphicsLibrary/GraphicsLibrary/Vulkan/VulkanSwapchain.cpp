@@ -10,7 +10,7 @@ namespace Alpha
 {
 	VulkanSwapchain::VulkanSwapchain(VulkanDevice* device)
 		: RHISwapchain()
-		, VulkanDeviceObject(device)
+		, VulkanDeviceChild(device)
 	{
 
 	}
@@ -173,6 +173,10 @@ namespace Alpha
 			mBackBuffers.push_back(back_buffer);
 		}
 		mMaxFrameCount = image_count;
+
+		SetWidth(swapchain_info.imageExtent.width);
+		SetHeight(swapchain_info.imageExtent.height);
+
 	}
 
 #ifdef _WIN64

@@ -9,7 +9,7 @@ namespace Alpha
 	class RHISwapchain;
 	class RHICommandBuffer;
 
-	class VulkanCommandQueue : public RHICommandQueue, public VulkanDeviceObject
+	class VulkanCommandQueue : public RHICommandQueue, public VulkanDeviceChild
 	{
 	private:
 		VkQueue mQueue{ VK_NULL_HANDLE };

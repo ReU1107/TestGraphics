@@ -6,7 +6,7 @@ namespace Alpha
 {
 	VulkanShader::VulkanShader(VulkanDevice* device)
 		: RHIShader()
-		, VulkanDeviceObject(device)
+		, VulkanDeviceChild(device)
 	{
 	}
 

@@ -12,7 +12,7 @@ namespace Alpha
 		//std::vector<VkSemaphore> WaitSemaphores{};			// このコマンドが処理する前に待たないといけないセマフォ群
 	};
 
-	class VulkanCommandBuffer : public RHICommandBuffer, public VulkanDeviceObject
+	class VulkanCommandBuffer : public RHICommandBuffer, public VulkanDeviceChild
 	{
 	private:
 		std::vector<VulkanCommand> mCommands{};
@@ -25,6 +25,8 @@ namespace Alpha
 	public:
 		VulkanCommandBuffer(VulkanDevice* device);
 		~VulkanCommandBuffer();
+
+		static void InitializeExtension(VulkanDevice* device);
 
 		void Create(uint32_t count);
 
@@ -44,6 +46,17 @@ namespace Alpha
 		virtual void Begin(uint32_t) override final;
 
 		virtual void End() override final;
+
+		virtual void BeginRenderTarget(RHISwapchain* swapchain_) override final;
+		virtual void BeginRenderTarget(RHITexture* texture_) override final;
+
+
+		virtual void EndRenderTarget(RHISwapchain* swapchain_) override final;
+		virtual void EndRenderTarget(RHITexture* texture_) override final;
+
+		virtual void BeginDynamicRendering(RHISwapchain* swapchain_) override final;
+
+		virtual void EndDynamicRendering() override final;
 
 	};
 

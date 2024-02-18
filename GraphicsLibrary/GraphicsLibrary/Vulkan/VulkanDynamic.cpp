@@ -8,14 +8,18 @@
 
 #pragma comment(lib,"vulkan-1.lib")
 
+#include "RHI/RHIDefinitions.h"
+
 #include "VulkanDevice.h"
 #include "VulkanSwapchain.h"
 #include "VulkanBuffer.h"
 #include "VulkanCommandBuffer.h"
 #include "VulkanCommandQueue.h"
 #include "VulkanShader.h"
+#include "VulkanDescriptorHeap.h"
+#include "VulkanDescriptorLayout.h"
+#include "VulkanDescriptorView.h"
 
-#include "RHI/RHIDefinitions.h"
 
 
 namespace Alpha
@@ -64,6 +68,8 @@ namespace Alpha
 	
 	RHICommandBuffer* VulkanDynamic::CreateCommandBuffer(RHICommandBufferDesc& desc)
 	{
+		VulkanCommandBuffer::InitializeExtension(mDevice);
+
 		VulkanCommandBuffer* buffer = new VulkanCommandBuffer(mDevice);
 		buffer->Create(desc.Count);
 		return buffer;
@@ -81,6 +87,21 @@ namespace Alpha
 		VulkanShader* shader = new VulkanShader(mDevice);
 		shader->Create(desc.path);
 		return shader;
+	}
+
+	RHIDescriptorHeap* VulkanDynamic::CreateDescriptorHeap(RHIDescriptorHeapDesc& desc)
+	{
+		RHICreate(VulkanDescriptorHeap);
+	}
+
+	RHIDescriptorLayout* VulkanDynamic::CreateDescriptorLayout(RHIDescriptorLayoutDesc& desc)
+	{
+		RHICreate(VulkanDescriptorLayout);
+	}
+
+	RHIDescriptorView* VulkanDynamic::CreateDescriptorView(RHIDescriptorViewDesc& desc)
+	{
+		RHICreate(VulkanDescriptorView);
 	}
 }
 

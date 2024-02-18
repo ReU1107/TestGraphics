@@ -4,7 +4,7 @@ namespace Alpha
 {
 	VulkanFence::VulkanFence(VulkanDevice* device)
 		: RHIFence()
-		, VulkanDeviceObject(device)
+		, VulkanDeviceChild(device)
 	{
 
 	

@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "RHIDefinitions.h"
+#include "RHIDeclarations.h"
 
 namespace Alpha
 {
@@ -7,6 +7,8 @@ namespace Alpha
 	{
 	public:
 		virtual ~RHIDescriptorHeap() {}
+
+		virtual void Create(const RHIDescriptorHeapDesc& desc) = 0;
 	};
 
 }

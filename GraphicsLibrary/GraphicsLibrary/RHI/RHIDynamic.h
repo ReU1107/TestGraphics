@@ -30,6 +30,17 @@ namespace Alpha
 		// 
 		virtual RHIShader* CreateShader(RHIShaderDesc& desc) = 0;
 
+		virtual RHIDescriptorHeap* CreateDescriptorHeap(RHIDescriptorHeapDesc& desc) = 0;
+
+		virtual RHIDescriptorLayout* CreateDescriptorLayout(RHIDescriptorLayoutDesc& desc) = 0;
+
+		virtual RHIDescriptorView* CreateDescriptorView(RHIDescriptorViewDesc& desc) = 0;
+
 	};
+
+#define RHICreate(RHIClass)\
+	auto object = new RHIClass(GetDevice());\
+	object->Create(desc);\
+	return object;
 
 }

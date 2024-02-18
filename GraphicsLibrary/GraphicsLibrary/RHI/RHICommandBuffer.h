@@ -26,6 +26,17 @@ namespace Alpha
 		//virtual void Transition(RHITexture* texture_) = 0;
 		//virtual void Transition(RHIBuffer* buffer_) = 0;
 
+		virtual void BeginRenderTarget(RHISwapchain* swapchain_) = 0;
+		virtual void BeginRenderTarget(RHITexture* texture_) = 0;
+
+
+		virtual void EndRenderTarget(RHISwapchain* swapchain_) = 0;
+		virtual void EndRenderTarget(RHITexture* texture_) = 0;
+
+		virtual void BeginDynamicRendering(RHISwapchain* swapchain_) = 0;
+
+		virtual void EndDynamicRendering() = 0;
+
 	};
 
 }

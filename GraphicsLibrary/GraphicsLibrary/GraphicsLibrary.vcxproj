@@ -269,6 +269,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="RHI\RHIDescriptorLayout.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIDescriptorView.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="RHI\RHIDynamic.h" />
     <ClInclude Include="RHI\RHIFence.h" />
     <ClInclude Include="RHI\RHIRef.h" />
@@ -300,9 +308,25 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Vulkan\VulkanDescriptorView.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Vulkan\VulkanDynamic.h" />
     <ClInclude Include="Vulkan\VulkanDevice.h" />
     <ClInclude Include="Vulkan\VulkanFence.h" />
+    <ClInclude Include="Vulkan\VulkanGraphicsPipeline.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Vulkan\VulkanPipelineLayout.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Vulkan\VulkanPrivate.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Vulkan\VulkanShader.h" />
     <ClInclude Include="Vulkan\VulkanSwapchain.h" />
     <ClInclude Include="Vulkan\VulkanTexture.h" />
@@ -329,9 +353,21 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Vulkan\VulkanDescriptorView.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Vulkan\VulkanDevice.cpp" />
     <ClCompile Include="Vulkan\VulkanDynamic.cpp" />
     <ClCompile Include="Vulkan\VulkanFence.cpp" />
+    <ClCompile Include="Vulkan\VulkanGraphicsPipeline.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Vulkan\VulkanPipelineLayout.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Vulkan\VulkanShader.cpp">
       <SubType>
       </SubType>

@@ -57,7 +57,7 @@ namespace Alpha
 
 	VulkanBuffer::VulkanBuffer(VulkanDevice* device, uint32_t stride, uint32_t size, EBufferUsage usage)
 		: RHIBuffer(stride, size, usage)
-		, VulkanDeviceObject(device)
+		, VulkanDeviceChild(device)
 	{
 
 	}

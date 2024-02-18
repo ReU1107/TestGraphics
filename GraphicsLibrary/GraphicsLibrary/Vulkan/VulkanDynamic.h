@@ -28,8 +28,16 @@ namespace Alpha
 
 		virtual RHIShader* CreateShader(RHIShaderDesc& desc) override;
 
+		virtual RHIDescriptorHeap* CreateDescriptorHeap(RHIDescriptorHeapDesc& desc) override;
+
+		virtual RHIDescriptorLayout* CreateDescriptorLayout(RHIDescriptorLayoutDesc& desc) override;
+
+		virtual RHIDescriptorView* CreateDescriptorView(RHIDescriptorViewDesc& desc) override;
+
 	private:
 		VulkanDevice* mDevice;
+
+		VulkanDevice* GetDevice() { return mDevice; }
 
 	};
 

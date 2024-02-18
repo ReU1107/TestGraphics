@@ -12,6 +12,13 @@ namespace Alpha
 	class RHIBuffer;
 	class RHIShader;
 	class RHIDescriptorHeap;
+	class RHIDescriptorLayout;
+	class RHIDescriptorView;
+	class RHIPipelineLayout;
+
+	class RHIGraphicsPipeline;
+
+
 
 	struct RHIBufferDesc;
 	struct RHITextureDesc;
@@ -22,5 +29,9 @@ namespace Alpha
 	struct RHIShaderDesc;
 
 	struct RHIDescriptorHeapDesc;
+	struct RHIDescriptorLayoutDesc;
+	struct RHIDescriptorViewDesc;
+	struct RHIPipelineLayoutDesc;
 
+	struct RHIGraphicsPipelineDesc;
 }

@@ -4,7 +4,7 @@
 
 namespace Alpha
 {
-	class VulkanShader : public RHIShader, public VulkanDeviceObject
+	class VulkanShader : public RHIShader, public VulkanDeviceChild
 	{
 	private:
 		VkShaderModule mModule{ VK_NULL_HANDLE };

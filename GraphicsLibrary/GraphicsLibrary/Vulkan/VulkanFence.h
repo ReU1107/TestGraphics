@@ -4,7 +4,7 @@
 
 namespace Alpha
 {
-	class VulkanFence : public RHIFence, public VulkanDeviceObject
+	class VulkanFence : public RHIFence, public VulkanDeviceChild
 	{
 	private:
 		VkFence mFence{ VK_NULL_HANDLE };

@@ -35,15 +35,15 @@ namespace Alpha
 		uint32_t mComputeQueueFamilyIndex{ 0 };					// 
 	};
 
-	class VulkanDeviceObject
+	class VulkanDeviceChild
 	{
 	public:
-		VulkanDeviceObject(VulkanDevice* device)
+		VulkanDeviceChild(VulkanDevice* device)
 			: mDevice(device)
 		{
 
 		}
-		virtual ~VulkanDeviceObject()
+		virtual ~VulkanDeviceChild()
 		{
 			mDevice = nullptr;
 		}
@@ -64,9 +64,12 @@ namespace Alpha
 		VulkanDevice* mDevice{ nullptr };		// 
 	};
 
-//#define DeclareVulkanObject()\
-//	private:\
-//		VulkanDeviceObject mObject;\
-//		VkInstance GetVkInstance() const { return mObject.GetVkInstance(); }\
+	static void VkCheckSuccess(VkResult result, const char* msg)
+	{
+		if (result != VK_SUCCESS)
+		{
+			
+		}
 
+	}
 }

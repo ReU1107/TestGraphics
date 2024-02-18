@@ -5,9 +5,13 @@
 
 namespace Alpha
 {
+	PFN_vkCmdBeginRenderingKHR vkCmdBeginRenderingKHR{ VK_NULL_HANDLE };
+	PFN_vkCmdEndRenderingKHR vkCmdEndRenderingKHR{ VK_NULL_HANDLE };
+
+
 	VulkanCommandBuffer::VulkanCommandBuffer(VulkanDevice* device)
 		: RHICommandBuffer()
-		, VulkanDeviceObject(device)
+		, VulkanDeviceChild(device)
 	{
 
 	}
@@ -26,6 +30,19 @@ namespace Alpha
 
 		vkFreeCommandBuffers(device, mCommandPool, command_buffers.size(), command_buffers.data());
 		vkDestroyCommandPool(device, mCommandPool, nullptr);
+	}
+
+	static bool once = true;
+
+	void VulkanCommandBuffer::InitializeExtension(VulkanDevice* device_)
+	{
+		if (once)
+		{
+			auto device = device_->GetVkDevice();
+			vkCmdBeginRenderingKHR = reinterpret_cast<PFN_vkCmdBeginRenderingKHR>(vkGetDeviceProcAddr(device, "vkCmdBeginRenderingKHR"));
+			vkCmdEndRenderingKHR = reinterpret_cast<PFN_vkCmdEndRenderingKHR>(vkGetDeviceProcAddr(device, "vkCmdEndRenderingKHR"));
+			once = false;
+		}
 	}
 
 	void VulkanCommandBuffer::Create(uint32_t count)
@@ -92,8 +109,8 @@ namespace Alpha
 		auto dst_buffer = static_cast<VulkanBuffer*>(dst);
 		auto src_buffer = static_cast<VulkanBuffer*>(src);
 
-		auto dst_native = dst_buffer->GetNative();
-		auto src_native = src_buffer->GetNative();
+		auto dst_native = dst_buffer->GetNativeHandle();
+		auto src_native = src_buffer->GetNativeHandle();
 
 		VkBufferCopy copy_region = {};
 
@@ -165,9 +182,6 @@ namespace Alpha
 		image_barrior.image = image;
 		image_barrior.subresourceRange = subresource_range;
 		
-		//image_barrior.srcAccessMask = src_mask;
-		//image_barrior.dstAccessMask = dst_mask;
-
 		vkCmdPipelineBarrier(command_buffer, src, dst, VkDependencyFlags(), 0, nullptr, 0, nullptr, 1, &image_barrior);
 
 		back_buffer.CurrentLayout = new_layout;
@@ -209,5 +223,127 @@ namespace Alpha
 		{
 
 		}
+	}
+
+	void VulkanCommandBuffer::BeginRenderTarget(RHISwapchain* swapchain_)
+	{
+		VkCommandBuffer command_buffer = GetCurrentCommandBuffer();
+
+		auto swapchain = static_cast<VulkanSwapchain*>(swapchain_);
+		auto image = swapchain->GetCurrentImage();
+		auto image_view = swapchain->GetCurrentImageView();
+		uint32_t width = swapchain->GetWidth();
+		uint32_t height = swapchain->GetHeight();
+
+		VkImageSubresourceRange subresource_range = {};
+		subresource_range.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+		subresource_range.levelCount = 1;
+		subresource_range.layerCount = 1;
+
+		VkImageMemoryBarrier image_barrior = {};
+		image_barrior.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+		image_barrior.oldLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+		image_barrior.newLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+		image_barrior.image = image;
+		image_barrior.subresourceRange = subresource_range;
+
+		vkCmdPipelineBarrier(command_buffer, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, VkDependencyFlags(), 0, nullptr, 0, nullptr, 1, &image_barrior);
+
+	}
+
+	void VulkanCommandBuffer::BeginRenderTarget(RHITexture* texture_)
+	{
+	}
+
+	void VulkanCommandBuffer::EndRenderTarget(RHISwapchain* swapchain_)
+	{
+		VkCommandBuffer command_buffer = GetCurrentCommandBuffer();
+
+		auto swapchain = static_cast<VulkanSwapchain*>(swapchain_);
+		auto image = swapchain->GetCurrentImage();
+		auto image_view = swapchain->GetCurrentImageView();
+		uint32_t width = swapchain->GetWidth();
+		uint32_t height = swapchain->GetHeight();
+
+		VkImageSubresourceRange subresource_range = {};
+		subresource_range.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+		subresource_range.levelCount = 1;
+		subresource_range.layerCount = 1;
+
+		VkImageMemoryBarrier image_barrior = {};
+		image_barrior.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+		image_barrior.oldLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+		image_barrior.newLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+		image_barrior.image = image;
+		image_barrior.subresourceRange = subresource_range;
+
+		vkCmdPipelineBarrier(command_buffer, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT, VkDependencyFlags(), 0, nullptr, 0, nullptr, 1, &image_barrior);
+
+	}
+
+	void VulkanCommandBuffer::EndRenderTarget(RHITexture* texture_)
+	{
+	}
+
+	void VulkanCommandBuffer::BeginDynamicRendering(RHISwapchain* swapchain_)
+	{
+		VkCommandBuffer command_buffer = GetCurrentCommandBuffer();
+
+		auto swapchain = static_cast<VulkanSwapchain*>(swapchain_);
+		auto image = swapchain->GetCurrentImage();
+		auto image_view = swapchain->GetCurrentImageView();
+		uint32_t width = swapchain->GetWidth();
+		uint32_t height = swapchain->GetHeight();
+
+		VkRenderingAttachmentInfoKHR color_attachment = {};
+		color_attachment.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
+		color_attachment.imageView = image_view;
+		color_attachment.imageLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+		color_attachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+		color_attachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+		color_attachment.clearValue.color = { 1.0f,0.0f,0.0f,1.0f };
+
+		//// A single depth stencil attachment info can be used, but they can also be specified separately.
+		//// When both are specified separately, the only requirement is that the image view is identical.			
+		//VkRenderingAttachmentInfoKHR depthStencilAttachment{};
+		//depthStencilAttachment.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
+		//depthStencilAttachment.imageView = depthStencil.view;
+		//depthStencilAttachment.imageLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+		//depthStencilAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+		//depthStencilAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+		//depthStencilAttachment.clearValue.depthStencil = { 1.0f,  0 };
+
+		VkRenderingInfoKHR info{};
+		info.sType = VK_STRUCTURE_TYPE_RENDERING_INFO_KHR;
+		info.renderArea = { 0, 0, width, height };
+		info.layerCount = 1;
+		info.colorAttachmentCount = 1;
+		info.pColorAttachments = &color_attachment;
+		//renderingInfo.pDepthAttachment = &depthStencilAttachment;
+		//renderingInfo.pStencilAttachment = &depthStencilAttachment;
+
+		vkCmdBeginRenderingKHR(command_buffer, &info);
+
+
+		VkViewport viewport = {};
+		viewport.width = (float)width; 
+		viewport.height = (float)height;
+		viewport.minDepth = 0.0f;
+		viewport.maxDepth = 1.0f;
+		vkCmdSetViewport(command_buffer, 0, 1, &viewport);
+
+		VkRect2D scissor = {};
+		scissor.extent.width = width;
+		scissor.extent.height = height;
+		vkCmdSetScissor(command_buffer, 0, 1, &scissor);
+
+
+	}
+
+	void VulkanCommandBuffer::EndDynamicRendering()
+	{
+		VkCommandBuffer command_buffer = GetCurrentCommandBuffer();
+
+		vkCmdEndRenderingKHR(command_buffer);
 	}
 }

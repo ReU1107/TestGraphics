@@ -12,6 +12,9 @@
 #include "Vulkan/VulkanSwapchain.h"
 #include "Vulkan/VulkanCommandBuffer.h"
 #include "Vulkan/VulkanCommandQueue.h"
+#include "Vulkan/VulkanDescriptorHeap.h"
+#include "Vulkan/VulkanDescriptorLayout.h"
+#include "Vulkan/VulkanDescriptorView.h"
 
 #include "Vulkan/VulkanBuffer.h"
 #include "Math/Vector.h"
@@ -30,6 +33,10 @@ namespace Alpha
 
 	RHIBuffer* vertex_buffer = nullptr;
 	RHIBuffer* vertex_staging_buffer = nullptr;
+
+	RHIDescriptorHeap* heep = nullptr;
+	RHIDescriptorLayout* layout = nullptr;
+	RHIDescriptorView* view = nullptr;
 
 	RenderCore::RenderCore(HWND hWnd)
 	{
@@ -93,11 +100,13 @@ namespace Alpha
 		uint32_t current_index = swapchain->GetCurrentBackBufferIndex();
 		list->Begin(current_index);
 
-		list->Transition(swapchain);
+		list->BeginRenderTarget(swapchain);
 
-		list->Clear(swapchain);
+		list->BeginDynamicRendering(swapchain);
 
-		list->Transition(swapchain);
+		list->EndDynamicRendering();
+
+		list->EndRenderTarget(swapchain);
 
 		list->End();
 		queue->ExecuteCommandBuffer(list);

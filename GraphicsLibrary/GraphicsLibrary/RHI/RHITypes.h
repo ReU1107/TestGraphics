@@ -2,6 +2,7 @@
 #include <cstdint>
 #include "Utility/EnumClassFlags.h"
 
+
 namespace Alpha
 {
 	enum class RHICommandType
@@ -81,6 +82,14 @@ namespace Alpha
 		Num
 	};
 
+	enum class ERHIResourceViewType
+	{
+		None,
+
+		UniformBuffer,
+		Texture,
+		Sampler,
+	};
 
 	enum class RHIResourceFlags
 	{
@@ -96,7 +105,7 @@ namespace Alpha
 
 	EnumClassFlags(RHIResourceFlags);
 
-	enum class RHIPrimitiveTopology
+	enum class ERHIPrimitiveTopology
 	{
 		Umdefined = 0,
 		PointList = 1,
@@ -187,18 +196,19 @@ namespace Alpha
 		//R8,					// Single channel(R) texture format, 8 bit integer.
 	};
 
-	enum class RHIShaderType
+	enum class ERHIShaderFlags
 	{
-		Vertex = 0x01,
-		Pixel = 0x02,
-
-
-		Compute = 0x10,
-		RayTracing = 0x20,
-
+		Vertex				= 1 << 0,	// 
+		Pixel				= 1 << 1,	// 
+		Geometry			= 1 << 2,	// 
+		Hull				= 1 << 3,	// 
+		Domain				= 1 << 4,	// 
+		Mesh				= 1 << 5,	// 
+		Compute				= 1 << 6,	// 
+		RayTracing			= 1 << 7,	// 
 
 	};
 
-	EnumClassFlags(RHIShaderType);
+	EnumClassFlags(ERHIShaderFlags);
 
 }
